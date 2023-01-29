@@ -6,6 +6,11 @@ import { Heartbeat, MapPin } from "phosphor-react";
 
 import Crown from "../assets/crown.svg";
 
+import 'swiper/css/bundle'
+import 'swiper/css'
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
+
 const product = {
   images: [
     "https://c4.wallpaperflare.com/wallpaper/162/894/557/colorful-neon-computer-keyboards-wallpaper-preview.jpg",
@@ -43,7 +48,9 @@ const ProductView = ({ most_view=false }: ProductViewProps) => {
         {
           product.images.map((image, index) => {
             return (
-              <SwiperSlide key={index} style={{backgroundImage: `url(${image})`}} className="bg-cover h-[100%] w-[100%] rounded" />
+              <SwiperSlide key={index} className="bg-cover h-[100%] w-[100%] rounded">
+                <div style={{backgroundImage: `url(${image})`}} className="bg-cover h-[100%] w-[100%] rounded" />
+              </SwiperSlide>
             )
           })
         }
@@ -53,7 +60,7 @@ const ProductView = ({ most_view=false }: ProductViewProps) => {
           <h3 className="font-medium text-[28px]">{product.title}</h3>
           {
             most_view?
-            (<img src={Crown} width="30px"/>):
+            (<img src={Crown} width="30px" alt="Crown"/>):
             (null)
           }
         </div>

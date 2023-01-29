@@ -10,7 +10,7 @@ const Home = () => {
       <Header />
       <Carousel />
       <ProductQueue title="Se diverta da melhor forma possível"/>
-      <ProductQueue title="Se diverta da melhor forma possível"/>
+      <ProductQueue title="Se diverta da melhor forma possível"/> 
       <ProductView most_view={true}/>
       <ProductQueue title="Se diverta da melhor forma possível"/>
       <Footer />

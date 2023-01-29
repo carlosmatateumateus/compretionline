@@ -63,13 +63,13 @@ const products = [
 ]
 
 interface ProductQueueProps {
-  title: String
+  title: String,
 }
 
 
 const ProductQueue = (props: ProductQueueProps) => {
   return (
-    <section className="mt-[50px] on-center">
+    <section className="mt-[50px] on-center productqueue">
       <h2 className="text-2xl font-medium">{props.title}</h2>
       <Swiper 
         className="flex gap-[170px] py-10"
