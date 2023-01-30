@@ -8,7 +8,7 @@ const QuestionBar = () => {
         placeholder="❔ Faça uma pergunta ao vendedor"
       />
       <span className="w-[700px] flex items-center justify-between mt-3 max-lg:w-[100%]">
-        <p>Para fazer um pergunta, <a href="#" className="bg-transparent text-[#75AEE3]">faça seu login.</a></p>
+        <p>Para fazer um pergunta, <a href="#" className="text-[#75AEE3]">faça seu login.</a></p>
         <Button disabled>Fazer pergunta.</Button>
       </span>
     </div>

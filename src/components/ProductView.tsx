@@ -60,8 +60,12 @@ const ProductView = ({ most_view=false }: ProductViewProps) => {
           <h3 className="font-medium text-[28px]">{product.title}</h3>
           {
             most_view?
-            (<img src={Crown} width="30px" alt="Crown"/>):
-            (null)
+            (
+              <abbr title="With most views this week">
+                <img src={Crown} width="30px" alt="Crown"/>
+              </abbr>
+            ):
+            ( null )
           }
         </div>
         <p className="block mb-[10px] mt-[10px] text-[16px] max-md:hidden">

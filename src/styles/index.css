@@ -20,3 +20,20 @@
 .card-bg {
   background-size: 100%;
 }
+
+body::-webkit-scrollbar {
+  width: 6px;               /* width of the entire scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(141, 141, 141, 0.288);        /* color of the tracking area */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #24242E;  
+  border-radius: 20px;       
+}
+
+.overflow-x-scroll::-webkit-scrollbar {
+  height: 6px;
+}

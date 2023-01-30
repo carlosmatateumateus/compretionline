@@ -67,23 +67,22 @@ interface ProductQueueProps {
 }
 
 
+
+
 const ProductQueue = (props: ProductQueueProps) => {
   return (
     <section className="mt-[50px] on-center productqueue">
-      <h2 className="text-2xl font-medium">{props.title}</h2>
-      <Swiper 
-        className="flex gap-[170px] py-10"
-        slidesPerView={6}
-        spaceBetween={50}
-        scrollbar={{
-          hide: false,
-        }}
-        modules={[Scrollbar]}
+      <div className="on-center flex items-center justify-between flex-wrap">
+        <h2 className="text-2xl font-medium mb-1">{props.title}</h2>
+        <a href="#" className="text-[#75AEE3]">Ver mais &gt;</a>
+      </div>
+      <article 
+        className="flex gap-[10px] py-10 overflow-x-scroll"
         >
         {
           products.map((product, index) => {
             return (
-              <SwiperSlide>
+              <div>
                 <ProductCard
                   key={index}
                   title={product.title}
@@ -91,11 +90,11 @@ const ProductQueue = (props: ProductQueueProps) => {
                   imgSrc={product.imgSrc}
                   description={product.description}
                 />
-              </SwiperSlide>
+              </div>
             )
           })
         }
-      </Swiper>
+      </article>
     </section>
   )
 }
