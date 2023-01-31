@@ -6,6 +6,7 @@ import {
 
 import Home from "./pages/Home";
 import ProductPage from "./pages/ProductPage";
+import Searching from "./pages/Searching";
 
 function App() {
   const router = createBrowserRouter([
@@ -16,6 +17,10 @@ function App() {
     {
       path: '/product',
       element: <ProductPage />
+    },
+    {
+      path: "/search",
+      element: <Searching />
     }
   ])
 
