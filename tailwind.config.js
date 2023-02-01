@@ -14,7 +14,7 @@ module.exports = {
       },
       screens: {
         'card-perfect-preview':'1050px'
-      }
+      },
     },
   },
   plugins: [],

@@ -7,6 +7,7 @@ import {
 import Home from "./pages/Home";
 import ProductPage from "./pages/ProductPage";
 import Searching from "./pages/Searching";
+import PostProduct from "./pages/PostProduct";
 
 function App() {
   const router = createBrowserRouter([
@@ -19,9 +20,13 @@ function App() {
       element: <ProductPage />
     },
     {
+      path: '/product/new',
+      element: <PostProduct />
+    },
+    {
       path: "/search",
       element: <Searching />
-    }
+    },
   ])
 
   return (
