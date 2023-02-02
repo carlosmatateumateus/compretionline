@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import ProductPage from "./pages/ProductPage";
 import Searching from "./pages/Searching";
 import PostProduct from "./pages/PostProduct";
+import NotFoundError from "./pages/NotFoundError";
 
 function App() {
   const router = createBrowserRouter([
@@ -27,6 +28,10 @@ function App() {
       path: "/search",
       element: <Searching />
     },
+    {
+      path: '*',
+      element: <NotFoundError />
+    }
   ])
 
   return (
