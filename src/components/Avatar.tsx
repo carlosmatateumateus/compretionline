@@ -1,6 +1,5 @@
 import * as Popover from '@radix-ui/react-popover';
 import avatar from "../assets/avatar.png"
-import { Cross2Icon } from '@radix-ui/react-icons';
 import { XCircle, PlusCircle, Heartbeat, Storefront } from "phosphor-react";
 import { Link } from  "react-router-dom"
 

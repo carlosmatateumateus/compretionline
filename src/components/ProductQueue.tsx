@@ -1,9 +1,4 @@
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Scrollbar } from "swiper";
 import ProductCard from "./ProductCard";
-
-import "swiper/css";
-import "swiper/css/scrollbar";
 
 const products = [
   {

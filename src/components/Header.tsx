@@ -8,19 +8,25 @@ import Notification from "./Notification/Notification";
 import SearchBar from "./SearchBar";
 import { useState } from "react";
 import Avatar from "./Avatar";
+import clsx from "clsx";
 
 
 interface HeaderProps {
   isLogged?: boolean
 }
 
-const Header = ({ isLogged=true }:HeaderProps) => {
+const Header = ({ isLogged=false }:HeaderProps) => {
   const [searchMobile, setSearchMobile] = useState(false)
 
   return (
     <header className="h-12 flex items-center justify-between on-center mt-2">
       <>
-        <div className="flex gap-4" style={{display: searchMobile?("none"):("flex")}}>
+        <div 
+          className={clsx("flex gap-4", {
+            "hidden": searchMobile === true,
+            "flex": searchMobile === false
+          })}
+          >
           <a href="/">
             <img src={logo} alt="compretionline logo" className="max-[300px]:hidden"/>
             <abbr title="compretionline logo">
@@ -31,7 +37,12 @@ const Header = ({ isLogged=true }:HeaderProps) => {
         </div>
         { !isLogged?
         (
-          <div className="flex items-center flex-row-reverse gap-2" style={{display: searchMobile?("none"):("flex")}}>
+          <div 
+            className={clsx("flex items-center flex-row-reverse gap-2", {
+              "hidden": searchMobile === true,
+              "flex": searchMobile === false
+            })}
+            >
             <button className="flex p-3 gap-4 border border-[#696969] rounded max-md:hidden">
               <img src={GoogleLogo} alt="Google logo"/>
               <span className="font-medium text-sm text-[#24242E]"> Iniciar sesão com o Google </span>
@@ -85,8 +96,10 @@ const Header = ({ isLogged=true }:HeaderProps) => {
         )
         }
         <div 
-          style={{display: searchMobile?("flex"):("none")}} 
-          className="w-full h-full justify-between items-center"
+          className={clsx("w-full h-full justify-between items-center", {
+            "flex": searchMobile === true,
+            "hidden": searchMobile === false
+          })}
           >
           <div className="bg-[#f9f9f977] w-[75%] h-full flex p-3 gap-4 border border-[#bdbdbd] items-center leading-6 text-slate-400 rounded-md py-1.5 pl-2 pr-3">
             <MagnifyingGlass className="text-slate-400"/>
