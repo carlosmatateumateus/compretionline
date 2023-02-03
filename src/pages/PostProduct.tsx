@@ -32,7 +32,7 @@ const PostProduct = () => {
                 <textarea
                   title="Descrição"
                   placeholder="Faça uma breve e descrição sobre o producto"
-                  className="resize-none w-[299px] h-[220px] rounded border text-[14px] border-[#24242E] p-4 placeholder:text-[14px]"
+                  className="max-md:w-[90vw] resize-none w-[299px] h-[220px] rounded border text-[14px] border-[#24242E] p-4 placeholder:text-[14px]"
                 />
               </div>
               <Input
@@ -45,13 +45,13 @@ const PostProduct = () => {
               />
             </div>
             <div className="mt-[40px] flex flex-col h-[220px] justify-between">
-              <select name="" id="" className="bg-white h-[56px] rounded border border-[#24242E] p-4 pr-6 pl-6 items-center justify-between cursor-pointer">
+              <select className="bg-white h-[56px] rounded border border-[#24242E] p-4 pr-6 pl-6 items-center justify-between cursor-pointer">
                 <option>categoria</option>
               </select>
-              <select name="" id="" className="bg-white h-[56px] rounded border border-[#24242E] p-4 pr-6 pl-6 items-center justify-between cursor-pointer">
+              <select className="bg-white h-[56px] rounded border border-[#24242E] p-4 pr-6 pl-6 items-center justify-between cursor-pointer">
                 <option>marca</option>
               </select>
-              <select name="" id="" className="bg-white h-[56px] rounded border border-[#24242E] p-4 pr-6 pl-6 items-center justify-between cursor-pointer">
+              <select className="bg-white h-[56px] rounded border border-[#24242E] p-4 pr-6 pl-6 items-center justify-between cursor-pointer">
                 <option>estado</option>
                 <option>novo</option>
                 <option>usado</option>
@@ -59,7 +59,7 @@ const PostProduct = () => {
               </select>
             </div>
           </main>
-          <div className="flex items-center justify-end gap-3">
+          <div className="flex items-center justify-end gap-3 max-md:justify-center mt-20">
             <span className="text-[#24242E] cursor-pointer">Cancelar</span>
             <Button>Salvar producto</Button>
           </div>

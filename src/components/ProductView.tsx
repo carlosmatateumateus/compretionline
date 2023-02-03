@@ -5,6 +5,7 @@ import Button from "./Button";
 import { Heartbeat, MapPin } from "phosphor-react";
 
 import Crown from "../assets/crown.svg";
+import { EnvelopeSimple } from "phosphor-react"
 
 import 'swiper/css/bundle'
 import 'swiper/css'
@@ -80,7 +81,10 @@ const ProductView = ({ most_view=false }: ProductViewProps) => {
         </span>
         <h4 className="text-lg text-[#474747] mb-[19px]">{product.price}</h4>
         <div className="flex gap-2 rounded">
-          <Button>Ver o producto</Button>
+          <Button>
+            <EnvelopeSimple size="20"/>
+            Falar com o vendedor
+          </Button>
           <button className="border w-[54px] h-[56px] flex items-center justify-center rounded">
             <Heartbeat size="26px" weight="duotone"/>
           </button>

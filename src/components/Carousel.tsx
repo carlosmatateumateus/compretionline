@@ -48,7 +48,7 @@ const Carousel = () => {
                       Lorem ipsum dolor sit amet, consectetur adipiscing elit
                     </p>
                   </div>
-                  <div className="mb-[20px] flex-shrink-0">
+                  <div className="mb-[20px] flex-shrink-0 max-md:mb-[30px]">
                     <Button children="Ver productos"/>
                   </div>
                 </article>

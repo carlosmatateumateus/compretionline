@@ -9,13 +9,13 @@ import NotificationFeed from "./NotificationFeed"
 const Notification = () => (
   <Popover.Root>
     <Popover.Trigger asChild>
-      <button className="IconButton bg-white h-[35px] w-[35px] inline-flex items-center justify-center rounded-full" aria-label="Update dimensions">
+      <button className="IconButton bg-white h-[35px] w-[35px] inline-flex items-center justify-center rounded-full" aria-label="Open and close Notifications">
         <Bell size="23px" weight="light" className="cursor-pointer"/>
       </button>
     </Popover.Trigger>
     <Popover.Portal>
       <Popover.Content className="PopoverContent w-96 rounded p-5 bg-white z-50" sideOffset={5}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+        <div className="flex flex-col gap-[10px]">
           <h3 className="Text mb-[10px]">
             Notificações
           </h3>

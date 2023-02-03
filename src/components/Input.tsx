@@ -6,15 +6,14 @@ interface InputProps {
   errorMessage?: string | undefined
 }
 
-const Input = ({ title, width=299, height=56, placeHolder, errorMessage }:InputProps) => {
+const Input = ({ title, placeHolder, errorMessage }:InputProps) => {
   return (
     <div className="mb-[16px]">
       <div className="mb-[16px]">
         <label>{title}*</label>
       </div>
       <input 
-        className="rounded border text-[14px] border-[#24242E] p-4 placeholder:text-[14px]"
-        style={{width: `${width}px`, height: `${height}px`}} 
+        className="rounded border text-[14px] border-[#24242E] p-4 placeholder:text-[14px] max-md:w-[100%]"
         placeholder={placeHolder}
       />
     </div>
