@@ -25,7 +25,7 @@ const ProductCard = (props: ProductCardProps) => {
       </div>
 
       <p className="text-sm text-[#BBBBBB] select-none">{props.description.slice(0, 24)}</p>
-      <button className="h-[50px] w-[200px] border border-[#24242E] text-[15px] rounded select-none hover:bg-[#24242E] hover:text-white">
+      <button className="h-[50px] w-[200px] border border-[#24242E] text-[15px] rounded select-none active:bg-[#24242E] active:text-white">
         Mais informações
       </button>
 
