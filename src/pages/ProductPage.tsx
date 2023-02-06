@@ -9,7 +9,7 @@ const ProductPage = () => {
   return (
     <section className="on-center">
       <Header />
-      <ProductView most_view={true}/>
+      <ProductView most_view={true} view/>
       <div className="flex justify-between">
         <article>
           <div className="flex gap-3 mt-10 items-center">

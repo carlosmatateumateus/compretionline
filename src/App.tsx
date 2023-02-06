@@ -7,7 +7,7 @@ import {
 import Home from "./pages/Home";
 import ProductPage from "./pages/ProductPage";
 import Searching from "./pages/Searching";
-import PostProduct from "./pages/PostProduct";
+import NewProduct from "./pages/NewProduct";
 import NotFoundError from "./pages/NotFoundError";
 
 function App() {
@@ -22,7 +22,7 @@ function App() {
     },
     {
       path: '/product/new',
-      element: <PostProduct />
+      element: <NewProduct />
     },
     {
       path: "/search",

@@ -1,5 +1,4 @@
 import Header from "../components/Header"
-import FilterBar from "../components/FilterBar"
 import ProductCard from "../components/ProductCard"
 import { CaretLeft, CaretRight } from "phosphor-react"
 import Footer from "../components/Footer"
@@ -101,14 +100,13 @@ const Searching = () => {
   return (
     <section>
       <Header />
-      <FilterBar />
+      <p className="text-xl mt-14 mb-14 ml-9">20 resultados encontrados para <mark className="bg-transparent text-[#75AEE3]">computadores portateis</mark></p>
       <main className="flex flex-wrap gap-4 on-center mt-4 justify-center">
       {
           products.map((product, index) => {
             return (
-              <div>
+              <div key={index}>
                 <ProductCard
-                  key={index}
                   title={product.title}
                   price={product.price}
                   imgSrc={product.imgSrc}

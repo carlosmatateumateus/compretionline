@@ -20,8 +20,8 @@ const PostProduct = () => {
                 placeHolder="Qual é o nome do producto?"
               />
               <Input
-                title="Modelo"
-                placeHolder="Qual é o modelo do producto?"
+                title="Categória"
+                placeHolder="Qual é o categória do producto?"
               />
             </div>
             <div className="flex flex-col gap-5">
@@ -43,20 +43,6 @@ const PostProduct = () => {
                 title="Localização"
                 placeHolder="Qual é a sua localização actual?"
               />
-            </div>
-            <div className="mt-[40px] flex flex-col h-[220px] justify-between">
-              <select className="bg-white h-[56px] rounded border border-[#24242E] p-4 pr-6 pl-6 items-center justify-between cursor-pointer">
-                <option>categoria</option>
-              </select>
-              <select className="bg-white h-[56px] rounded border border-[#24242E] p-4 pr-6 pl-6 items-center justify-between cursor-pointer">
-                <option>marca</option>
-              </select>
-              <select className="bg-white h-[56px] rounded border border-[#24242E] p-4 pr-6 pl-6 items-center justify-between cursor-pointer">
-                <option>estado</option>
-                <option>novo</option>
-                <option>usado</option>
-                <option>antigo</option>
-              </select>
             </div>
           </main>
           <div className="flex items-center justify-end gap-3 max-md:justify-center mt-20">

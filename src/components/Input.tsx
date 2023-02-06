@@ -13,7 +13,7 @@ const Input = ({ title, placeHolder, errorMessage }:InputProps) => {
         <label>{title}*</label>
       </div>
       <input 
-        className="rounded border text-[14px] border-[#24242E] p-4 placeholder:text-[14px] max-md:w-[100%]"
+        className="rounded border h-[56px] text-[14px] border-[#24242E] p-4 placeholder:text-[14px] max-md:w-[100%]"
         placeholder={placeHolder}
       />
     </div>

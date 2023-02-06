@@ -57,7 +57,6 @@ const RelatedProducts = () => {
           })
         }
       </Swiper>
-      <a href="#" className="text-[#75AEE3]">Ver todos os productos &gt;</a>
     </section>
   )
 }

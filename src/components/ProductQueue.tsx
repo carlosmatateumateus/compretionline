@@ -69,7 +69,7 @@ const ProductQueue = (props: ProductQueueProps) => {
     <section className="mt-[50px] on-center productqueue">
       <div className="on-center flex items-center justify-between flex-wrap">
         <h2 className="text-2xl font-medium mb-1">{props.title}</h2>
-        <span className="text-[#75AEE3]">Ver mais &gt;</span>
+        {/* <span className="text-[#75AEE3]">Ver mais &gt;</span> */}
       </div>
       <article 
         className="flex gap-[10px] py-10 overflow-x-scroll"

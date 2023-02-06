@@ -15,7 +15,7 @@ interface HeaderProps {
   isLogged?: boolean
 }
 
-const Header = ({ isLogged=false }:HeaderProps) => {
+const Header = ({ isLogged=true }:HeaderProps) => {
   const [searchMobile, setSearchMobile] = useState(false)
 
   return (
@@ -28,9 +28,9 @@ const Header = ({ isLogged=false }:HeaderProps) => {
           })}
           >
           <a href="/">
-            <img src={logo} alt="compretionline logo" className="max-[300px]:hidden"/>
+            <img src={logo} alt="compretionline logo" className="max-[300px]:hidden select-none" draggable="false" />
             <abbr title="compretionline logo">
-              <Storefront size="33" weight="light" className="hidden max-[300px]:block"/>
+              <Storefront size="33" weight="light" className="hidden max-[300px]:block select-none" />
             </abbr>
           </a>
           <SearchBar />

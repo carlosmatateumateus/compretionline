@@ -22,11 +22,11 @@
 }
 
 body::-webkit-scrollbar {
-  width: 6px;               /* width of the entire scrollbar */
+  width: 6px;   
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(141, 141, 141, 0.288);        /* color of the tracking area */
+  background: rgba(141, 141, 141, 0.288);    
 }
 
 ::-webkit-scrollbar-thumb {
@@ -38,3 +38,10 @@ body::-webkit-scrollbar {
   height: 6px;
 }
 
+.swiper-scrollbar-drag {
+  display: none;
+}
+
+.swiper-scrollbar-drag + .swiper-scrollbar-drag {
+  display: block;
+}

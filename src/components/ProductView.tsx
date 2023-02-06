@@ -22,15 +22,16 @@ const product = {
   ],
   title: "Macbook Pro",
   description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean in enim ac ex varius ornare. Aliquam erat volutpat. Aenean interdum sodales mi, vitae efficitur augue ullamcorper vulputateLorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean in enim ac ex varius ornare. Aliquam erat volutpat. Aenean interdum sodale",
-  price: "$400",
-  location: "Luanda, Angola"
+  price: "$400,22",
+  location: "Angola, Luanda"
 }
 
 interface ProductViewProps {
   most_view: Boolean
+  view?: Boolean
 }
 
-const ProductView = ({ most_view=false }: ProductViewProps) => {
+const ProductView = ({ most_view=false, view }: ProductViewProps) => {
   return (
     <article className="mt-[87px] flex justify-between w-[100%] on-center max-md:justify-center gap-4 max-[700px]:flex-wrap">
       <Swiper
@@ -82,8 +83,20 @@ const ProductView = ({ most_view=false }: ProductViewProps) => {
         <h4 className="text-lg text-[#474747] mb-[19px]">{product.price}</h4>
         <div className="flex gap-2 rounded">
           <Button>
-            <EnvelopeSimple size="20"/>
-            Falar com o vendedor
+            {
+              view?
+              (
+                <>
+                  <EnvelopeSimple size="20"/>
+                  Falar com o vendedor
+                </>
+              ):
+              (
+                <>
+                  Ver mais informaçãoes
+                </>
+              )
+            }
           </Button>
           <button className="border w-[54px] h-[56px] flex items-center justify-center rounded">
             <Heartbeat size="26px" weight="duotone"/>
