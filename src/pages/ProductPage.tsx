@@ -12,10 +12,12 @@ const ProductPage = () => {
       <ProductView most_view={true} view/>
       <div className="flex justify-between">
         <article>
-          <div className="flex gap-3 mt-10 items-center">
+          <div className="flex gap-3 mt-10 items-center justify-between flex-wrap">
             <h2 className="font-medium text-[25px] text-[#24242E]">Repostas de perguntas</h2>
             <a href="#" className="text-[#AEAEAE] text-[14px]">Carregar mais respostas ...</a>
           </div>
+          <Answer />
+          <Answer />
           <Answer />
           <Answer />
           <Answer />
