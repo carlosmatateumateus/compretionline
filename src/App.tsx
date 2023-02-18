@@ -9,15 +9,16 @@ import ProductPage from "./pages/ProductPage";
 import Searching from "./pages/Searching";
 import NewProduct from "./pages/NewProduct";
 import NotFoundError from "./pages/NotFoundError";
+import { AuthContextProvider } from "./contexts/AuthContext";
 
-function App() {
+export default function App() {
   const router = createBrowserRouter([
     {
       path: "/",
       element: <Home />
     },
     {
-      path: '/product',
+      path: '/product/:productId',
       element: <ProductPage />
     },
     {
@@ -25,7 +26,15 @@ function App() {
       element: <NewProduct />
     },
     {
-      path: "/search",
+      path: "/product/my",
+      element: <Searching />
+    },
+    {
+      path: "/product/edit/:productId",
+      element: <NewProduct />
+    },
+    {
+      path: "/search/:title",
       element: <Searching />
     },
     {
@@ -35,8 +44,8 @@ function App() {
   ])
 
   return (
-    <RouterProvider router={router}/>
+    <AuthContextProvider>
+      <RouterProvider router={router}/>
+    </AuthContextProvider>
   )
 }
-
-export default App;

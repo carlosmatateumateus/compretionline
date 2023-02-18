@@ -1,22 +1,18 @@
-import logo from "../assets/logo.svg" 
-import GoogleLogo from "../assets/Google logo.svg"
-import { MagnifyingGlass, PlusCircle, Heartbeat, Storefront } from "phosphor-react";
-import { Link } from  "react-router-dom"
-
-import Notification from "./Notification/Notification";
-
 import SearchBar from "./SearchBar";
-import { useState } from "react";
+import useAuth from "../hooks/useAuth";
 import Avatar from "./Avatar";
 import clsx from "clsx";
 
+import { useState } from "react";
 
-interface HeaderProps {
-  isLogged?: boolean
-}
+import logo from "../assets/logo.svg" 
+import GoogleLogo from "../assets/Google logo.svg"
+import { MagnifyingGlass, PlusCircle, Storefront } from "phosphor-react";
 
-const Header = ({ isLogged=true }:HeaderProps) => {
+export default function Header() {
   const [searchMobile, setSearchMobile] = useState(false)
+
+  const { user, signInWithGoogle } = useAuth()
 
   return (
     <header className="h-12 flex items-center justify-between on-center mt-2">
@@ -35,7 +31,7 @@ const Header = ({ isLogged=true }:HeaderProps) => {
           </a>
           <SearchBar />
         </div>
-        { !isLogged?
+        { !user?
         (
           <div 
             className={clsx("flex items-center flex-row-reverse gap-2", {
@@ -43,11 +39,17 @@ const Header = ({ isLogged=true }:HeaderProps) => {
               "flex": searchMobile === false
             })}
             >
-            <button className="flex p-3 gap-4 border border-[#696969] rounded max-md:hidden">
+            <button 
+              className="flex p-3 gap-4  bg-white border border-[#696969] rounded max-md:hidden active:brightness-95" 
+              onClick={() => signInWithGoogle()}
+            >
               <img src={GoogleLogo} alt="Google logo"/>
               <span className="font-medium text-sm text-[#24242E]"> Iniciar sesão com o Google </span>
             </button>
-            <button className="IconButton bg-white h-[35px] w-[35px] hidden max-md:inline-flex items-center justify-center rounded-full">
+            <button 
+              className="IconButton bg-white h-[35px] w-[35px] hidden max-md:inline-flex items-center justify-center rounded-full" 
+              onClick={() => signInWithGoogle()}
+            >
               <img src={GoogleLogo} alt="Google logo"/>
             </button>
             <button 
@@ -77,20 +79,14 @@ const Header = ({ isLogged=true }:HeaderProps) => {
                 className="cursor-pointer header-icon"
               />
             </button>
-            <Link to="/product/new" className="IconButton bg-white h-[35px] w-[35px] inline-flex items-center justify-center rounded-full max-md:hidden" aria-label="Go to post a product form">
+            <a href="/product/new" className="IconButton bg-white h-[35px] w-[35px] inline-flex items-center justify-center rounded-full max-md:hidden" aria-label="Go to post a product form">
               <PlusCircle size="23px" weight="light" className="cursor-pointer header-icon"/>
-            </Link>
-            <Link to="/" className="max-md:hidden">
+            </a>
+            <a href="/product/my/" className="max-md:hidden">
               <button className="IconButton bg-white h-[35px] w-[35px] inline-flex items-center justify-center rounded-full" aria-label="Go to my products">
                 <Storefront size="23px" weight="light" className="cursor-pointer header-icon"/>
               </button>
-            </Link>
-            <Link to="/" className="max-md:hidden">
-              <button className="IconButton bg-white h-[35px] w-[35px] inline-flex items-center justify-center rounded-full" aria-label="Got to my favorites products">
-                <Heartbeat size="23px" weight="light" className="cursor-pointer header-icon"/>
-              </button>
-            </Link>
-            <Notification />
+            </a>
             <Avatar />
           </div>
         )
@@ -120,5 +116,3 @@ const Header = ({ isLogged=true }:HeaderProps) => {
     </header>
   )
 }
-
-export default Header;

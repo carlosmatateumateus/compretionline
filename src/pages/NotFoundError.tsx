@@ -8,8 +8,8 @@ const NotFoundError = () => {
       <Header />
       <main className="h-[90vh] flex flex-col items-center justify-center gap-5">
         <img src={logo} alt="compretionline logo"/>
-        <h2 className="text-[20px] text-[#24242E] font-medium">404 page not found</h2>
-        <p className="text-[#AEAEAE] text-[18px] text-center">The page you are looking for does not exist or has been temporarily removed.</p>
+        <h2 className="text-[20px] text-[#24242E] font-medium">404 página não encontrada</h2>
+        <p className="text-[#AEAEAE] text-[18px] text-center">A página que você está procurando não existe ou está temporariamente indisponível!</p>
         <a href="/">
           <Button>Voltar para para a Home</Button>
         </a>

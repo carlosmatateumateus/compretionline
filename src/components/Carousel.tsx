@@ -5,22 +5,22 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
-import Button from "./Button";
 
 const sliders = [
   {
     imgSrc:"https://images.unsplash.com/photo-1611654302046-49b1cff819c9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1570&q=80",
-    content: `Encontre os melhores productos
-    ao melhor preço`
+    title: `Encontre os productos da apple
+    ao melhor preço.`,
+    description: "Encontre iphones, apple watchs, macbooks, airpods tudo isso e muito mais em um único lugar."
   },
   {
-    imgSrc:"https://images.unsplash.com/photo-1611654302046-49b1cff819c9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1570&q=80",
-    content: `Encontre os melhores productos
-    ao melhor preço`
-  }
+    imgSrc:"https://images.unsplash.com/photo-1603481546579-65d935ba9cdd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
+    title: `Já está mais do que na hora de teres aquele canto só teu.`,
+    description: "Já está na hora de comprar aquele computador."
+  },
 ]
 
-const Carousel = () => {
+export default function Carousel() {
   return (
     <div>
       <Swiper
@@ -43,13 +43,10 @@ const Carousel = () => {
               <SwiperSlide key={index} style={{backgroundImage: `url(${slider.imgSrc})`}} className="h-[100%] w-[100%] bg-cover bg-no-repeat">
                 <article className="h-[100%] w-[95%] ml-auto mr-auto flex items-end justify-between max-md:flex-col max-md:justify-end max-md:items-center max-md:text-center">
                   <div className="mb-[20px]">
-                    <h1 className="text-white text-[32px] font-medium max-md:text-[20px] ">{slider.content}</h1>
+                    <h1 className="text-white text-[32px] font-medium max-md:text-[20px] ">{slider.title}</h1>
                     <p className="text-white text-[20px] max-md:text-[15px]">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                      {slider.description}
                     </p>
-                  </div>
-                  <div className="mb-[20px] flex-shrink-0 max-md:mb-[30px]">
-                    <Button children="Ver productos"/>
                   </div>
                 </article>
               </SwiperSlide>
@@ -60,5 +57,3 @@ const Carousel = () => {
     </div>
   )
 }
-
-export default Carousel;

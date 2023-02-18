@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+.IconButton {
+  box-shadow: rgb(14 18 22 / 53%) 0px 0px 3px 0px, rgb(14 18 22 / 49%) 0px 10px 20px -15px;
+}
+.IconButton:active {
+  box-shadow: hsl(206 22% 7% / 35%) 0px 10px 38px -10px, hsl(206 22% 7% / 20%) 0px 10px 20px -15px,
+    0 0 0 2px var(--violet7);
+}
+
 .on-center {
   width: calc(100vw - 30px);
   margin-left: auto;
@@ -44,4 +52,29 @@ body::-webkit-scrollbar {
 
 .swiper-scrollbar-drag + .swiper-scrollbar-drag {
   display: block;
+}
+
+.btn-ring {
+  display: block;
+}
+
+.btn-ring:after {
+  content: "";
+  display: block;
+  width: 25px;
+  height: 25px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  border-color: #fff transparent #fff;
+  animation: ring 1.2s linear infinite;
+}
+
+@keyframes ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

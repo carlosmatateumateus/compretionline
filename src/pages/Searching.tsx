@@ -1,135 +1,110 @@
+import { useParams } from "react-router-dom";
 import Header from "../components/Header"
 import ProductCard from "../components/ProductCard"
-import { CaretLeft, CaretRight } from "phosphor-react"
 import Footer from "../components/Footer"
+import Button from "../components/Button";
 
-const products = [
-  {
-    imgSrc: "https://i.pinimg.com/564x/0d/7d/22/0d7d22346b3abfa9bb6c59efc5b5eb66.jpg",
-    title: 'Consola xbox series',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    price: 12000.00
-  },
-  {
-    imgSrc: "https://i.pinimg.com/564x/0d/7d/22/0d7d22346b3abfa9bb6c59efc5b5eb66.jpg",
-    title: 'Consola xbox series',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    price: 12000.00
-  },
-  {
-    imgSrc: "https://i.pinimg.com/564x/0d/7d/22/0d7d22346b3abfa9bb6c59efc5b5eb66.jpg",
-    title: 'Consola xbox series',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    price: 12000.00
-  },
-  {
-    imgSrc: "https://i.pinimg.com/564x/0d/7d/22/0d7d22346b3abfa9bb6c59efc5b5eb66.jpg",
-    title: 'Consola xbox series',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    price: 12000.00
-  },
-  {
-    imgSrc: "https://i.pinimg.com/564x/0d/7d/22/0d7d22346b3abfa9bb6c59efc5b5eb66.jpg",
-    title: 'Consola xbox series',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    price: 12000.00
-  },
-  {
-    imgSrc: "https://i.pinimg.com/564x/0d/7d/22/0d7d22346b3abfa9bb6c59efc5b5eb66.jpg",
-    title: 'Consola xbox series',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    price: 12000.00
-  },
-  {
-    imgSrc: "https://i.pinimg.com/564x/0d/7d/22/0d7d22346b3abfa9bb6c59efc5b5eb66.jpg",
-    title: 'Consola xbox series',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    price: 12000.00
-  },
-  {
-    imgSrc: "https://i.pinimg.com/564x/0d/7d/22/0d7d22346b3abfa9bb6c59efc5b5eb66.jpg",
-    title: 'Consola xbox series',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    price: 12000.00
-  },
-  {
-    imgSrc: "https://i.pinimg.com/564x/0d/7d/22/0d7d22346b3abfa9bb6c59efc5b5eb66.jpg",
-    title: 'Consola xbox series',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    price: 12000.00
-  },
-  {
-    imgSrc: "https://i.pinimg.com/564x/0d/7d/22/0d7d22346b3abfa9bb6c59efc5b5eb66.jpg",
-    title: 'Consola xbox series',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    price: 12000.00
-  },
-  {
-    imgSrc: "https://i.pinimg.com/564x/0d/7d/22/0d7d22346b3abfa9bb6c59efc5b5eb66.jpg",
-    title: 'Consola xbox series',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    price: 12000.00
-  },
-  {
-    imgSrc: "https://i.pinimg.com/564x/0d/7d/22/0d7d22346b3abfa9bb6c59efc5b5eb66.jpg",
-    title: 'Consola xbox series',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    price: 12000.00
-  },
-  {
-    imgSrc: "https://i.pinimg.com/564x/0d/7d/22/0d7d22346b3abfa9bb6c59efc5b5eb66.jpg",
-    title: 'Consola xbox series',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    price: 12000.00
-  },
-  {
-    imgSrc: "https://i.pinimg.com/564x/0d/7d/22/0d7d22346b3abfa9bb6c59efc5b5eb66.jpg",
-    title: 'Consola xbox series',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    price: 12000.00
-  },
-  {
-    imgSrc: "https://i.pinimg.com/564x/0d/7d/22/0d7d22346b3abfa9bb6c59efc5b5eb66.jpg",
-    title: 'Consola xbox series',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    price: 12000.00
-  },
-]
+import { Ghost } from "phosphor-react"
+import { useEffect, useState } from "react";
+import { api } from "../lib/axios";
+import useAuth from "../hooks/useAuth";
 
-const Searching = () => {
+interface ProductTypes {
+  id: string,
+  title: string,
+  description: string,
+  price: number,
+  location: string,
+  createdAt: string,
+  photo: string
+}
+
+export default function Searching() {
+  const { user } = useAuth()
+
+  const { title } = useParams()
+
+  const [results, setResults] = useState(0)
+  const [products, setProducts] = useState([] as Array<ProductTypes>)
+
+  useEffect(() => {
+    async function callApi() {
+      if (window.document.location.pathname !== "/product/my/") {
+        const productsValues = await api.get(`/product/search/${title}`)
+
+        setResults(productsValues.data.results)
+        setProducts(productsValues.data.products)
+      }
+      
+      if (window.document.location.pathname === "/product/my/" && user) {
+        const productsValues = await api.get(`/product/my/${user?.uid}`)
+
+        setResults(productsValues.data.results)
+        setProducts(productsValues.data.products)
+      }
+    }
+
+    return () => {
+      callApi()
+    }
+  }, [user])
+
   return (
     <section>
       <Header />
-      <p className="text-xl mt-14 mb-14 ml-9">20 resultados encontrados para <mark className="bg-transparent text-[#75AEE3]">computadores portateis</mark></p>
-      <main className="flex flex-wrap gap-4 on-center mt-4 justify-center">
-      {
-          products.map((product, index) => {
-            return (
-              <div key={index}>
-                <ProductCard
-                  title={product.title}
-                  price={product.price}
-                  imgSrc={product.imgSrc}
-                  description={product.description}
-                />
-              </div>
-            )
-          })
+      <p className="text-xl mt-14 mb-14 ml-9">
+        {
+          window.document.location.pathname === "/product/my/"?
+          (
+            <>
+              { results } productos publicado por <mark className="bg-transparent text-[#75AEE3]">{user?.email}</mark>
+            </>
+          ):
+          (
+            <>
+              { results } resultados encontrados para <mark className="bg-transparent text-[#75AEE3]">{title}</mark>
+            </>
+          )
         }
-      </main>
-      <div className="flex gap-4 on-center justify-center mt-20 flex-wrap">
-        <button className="flex items-center justify-center h-[56px] w-[170px] border-[0.8px] border-[#24242E] rounded gap-4">
-          <CaretLeft />
-          <span>Anteceder</span>
-        </button>
-        <button className="flex items-center justify-center h-[56px] w-[170px] border-[0.8px] border-[#24242E] rounded gap-4">
-          <span>Próximo</span>
-          <CaretRight />
-        </button>
-      </div>
+      </p>
+
+      <>
+        {
+          results !== 0?
+          (
+            <>
+              <main className="flex flex-wrap gap-4 on-center mt-4 justify-center">
+                {
+                  products.map((product, index) => {
+                    return (
+                      <div key={index}>
+                        <ProductCard
+                          title={product.title}
+                          price={product.price}
+                          imgSrc={product.photo}
+                          description={product.description}
+                          id={product.id}
+                        />
+                      </div>
+                    )
+                  })
+                }
+              </main>
+            </>
+          ):
+          (
+            <main className="h-[60vh] flex flex-col items-center justify-center gap-5">
+              <Ghost size="50"/>
+              <h2 className="text-[20px] text-[#24242E] font-medium">401 Nenhum producto encontrado</h2>
+              <p className="text-[#AEAEAE] text-[18px] text-center">O producto que você está tentando procurando ou tentando procurar não está nesta marketplace!</p>
+              <a href="/">
+                <Button>Voltar para para a Home</Button>
+              </a>
+            </main>
+          )
+        }
+      </>
       <Footer />
     </section>
   )
 }
-
-export default Searching
