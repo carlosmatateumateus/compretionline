@@ -4,16 +4,16 @@ import Header from "../components/Header";
 import ProductView from "../components/ProductView";
 import { useEffect, useState } from "react";
 import { api, timeApi } from "../lib/axios";
-import timeAgo from "../lib/timeAgo";
+import timeAgo from "../utils/timeAgo";
 
 interface ProductTypes {
-  title: string,
-  description: string,
-  price: number,
-  location: string,
-  createdAt: string,
-  userId: string, 
-  photo: string
+  title: string | undefined,
+  description: string | undefined,
+  price: number | undefined,
+  photo: string | undefined,
+  location: string | undefined,
+  createdAt: string | undefined,
+  userId: string | undefined,
 }
 
 const ProductPage = () => {
@@ -23,6 +23,15 @@ const ProductPage = () => {
   const [time, setTime] = useState() as any
 
   useEffect(() => {
+    setProduct({
+      title: "???",
+      description: "???",
+      createdAt: "???",
+      location: "???",
+      photo: undefined,
+      price: 0.00,
+      userId: undefined
+    })
     async function callApi() {
       const value = await api.get(`/product/${productId}`)
 

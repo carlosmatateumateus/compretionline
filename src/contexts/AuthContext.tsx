@@ -1,5 +1,6 @@
 import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 import { createContext, useState, ReactNode, useEffect } from "react";
+
 import { auth } from "../lib/firebase"
 import { api } from "../lib/axios";
 
@@ -33,7 +34,6 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged( user =>{
-      console.log('Chamaram-me')
       if (user) {
         const { uid, photoURL, email } = user as User
         userVerify({ uid, photoURL, email })

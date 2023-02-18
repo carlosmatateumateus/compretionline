@@ -16,24 +16,43 @@ interface ProductQueueProps {
   products: Array<ProductTypes>
 }
 
+const productDefault = [{}, {}, {}, {}, {}, {}, {}, {}]
+
 export default function ProductQueue ({ title, products }: ProductQueueProps) {
 
   function ProductsMap() {
     return (
       <>
         {
-          products?.map((product, index) => {
-            return (
-              <ProductCard
-                key={index}
-                title={product.title}
-                price={product.price}
-                description={product.description}
-                imgSrc={product.photo}
-                id={product.id}
-              />
-            )
-          })
+          products.length > 0?
+          (
+            products?.map((product, index) => {
+              return (
+                <ProductCard
+                  key={index}
+                  title={product.title}
+                  price={product.price}
+                  description={product.description}
+                  imgSrc={product.photo}
+                  id={product.id}
+                />
+              )
+            })
+          ):
+          (
+            productDefault?.map((product, index) => {
+              return (
+                <ProductCard
+                  key={index}
+                  title={"???"}
+                  price={0.00}
+                  description={"???"}
+                  imgSrc={undefined}
+                  id={undefined}
+                />
+              )
+            })
+          )
         }
       </>
     )
