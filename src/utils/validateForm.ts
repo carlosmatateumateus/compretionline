@@ -24,7 +24,7 @@ interface validateFormProps {
 }
 
 type fieldValidator = {
-  field: string,
+  field: string | any,
   callBack: Function
 }
 
@@ -106,15 +106,36 @@ function descriptionValidator(props: fieldValidator) {
   return error
 }
 
-function imageValidator(props: fieldValidator) {
+type fieldImageValidator = {
+  default: fieldValidator,
+  imageChanged: boolean,
+}
+
+function imageValidator(props: fieldImageValidator) {
   let error;
 
-  if (props.field === undefined) {
-    props.callBack("Selecione uma imagem!")
+  if (props.default.field === undefined) {
+    props.default.callBack("Selecione uma imagem!")
     error = "error"
   } else {
-    props.callBack("")
+    props.default.callBack("")
     error = "error"
+    error = ""
+  }
+
+  if (props.imageChanged) {
+    const size = parseInt(String(props.default.field.size / 1024))
+
+    if (size > 1000) {
+      props.default.callBack('Imagem muito grande!')
+      error = "error"
+    } else if (size < 15) {
+      props.default.callBack('Imagem sem nitidez!')
+      error = "error"
+    } else {
+      error = ""
+    }
+  } else {
     error = ""
   }
 
@@ -151,8 +172,11 @@ export default function validateForm(props:validateFormProps) {
   }) as string
 
   error.image = imageValidator({
-    field: props.image,
-    callBack: props.setImageError
+    default: {
+      field: props.image,
+      callBack: props.setImageError,
+    },
+    imageChanged: props.imageChanged
   }) as string
 
   if (
