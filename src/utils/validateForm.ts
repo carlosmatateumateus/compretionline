@@ -23,45 +23,145 @@ interface validateFormProps {
   user: User | undefined
 }
 
+type fieldValidator = {
+  field: string,
+  callBack: Function
+}
+
+function nameValidator(props: fieldValidator) {
+  let error;
+
+  if (props.field === undefined) {
+    props.callBack('Nome invalido!')
+    error = "error"
+  } else if (props.field.length < 10) {
+    props.callBack('Nome muito curto!')
+    error = "error"
+  } else if (props.field.length > 20) {
+    props.callBack('Nome muito longo!')
+    error = "error"
+  } else {
+    props.callBack('')
+    error = ""
+  }
+
+  return error
+}
+
+function priceValidator(props: fieldValidator) {
+  let error;
+
+  if (Number.isNaN(Number(props.field))) {
+    props.callBack('Preço invalido!')
+    error = "error"
+  } else if(Number(props.field) < 1) {
+    props.callBack('Preço muito baixo!')
+    error = "error"
+  } else if(Number(props.field) > 1000000000000) {
+    props.callBack('Preço muito elevado!')
+    error = "error"
+  } else {
+    props.callBack('')
+    error = ""
+  }
+
+  return error
+}
+
+function locationValidator(props: fieldValidator) {
+  let error;
+
+  if (props.field === undefined) {
+    props.callBack("Localização invalida!")
+    error = "error"
+  } else if(props.field.length < 5) {
+    props.callBack('Cordenada insuficiente!')
+    error = "error"
+  } else if (props.field.length > 30) {
+    props.callBack('Cordenada exagerada!')
+    error = "error"
+  } else {
+    props.callBack("")
+    error = ""
+  }
+
+  return error
+}
+
+function descriptionValidator(props: fieldValidator) {
+  let error;
+
+  if (props.field === undefined || String(props.field).trim().length < 30) {
+    props.callBack("Minimo 30 caracteres!")
+    error = "error"
+  } else if (String(props.field).trim().length > 350) {
+    props.callBack("Máximo 350 caracteres!")
+    error = "error"
+  } else {
+    props.callBack("")
+    error = "error"
+    error = ""
+  }
+
+  return error
+}
+
+function imageValidator(props: fieldValidator) {
+  let error;
+
+  if (props.field === undefined) {
+    props.callBack("Selecione uma imagem!")
+    error = "error"
+  } else {
+    props.callBack("")
+    error = "error"
+    error = ""
+  }
+
+  return error
+}
+
 export default function validateForm(props:validateFormProps) {
-  let error = false
-
-  if (props.name === undefined || String(props.name).trim().length < 4 || props.name === "") {
-    props.setNameError('Nome muito curto!')
-    error = true
-  } else {
-    props.setNameError('')
+  const error = {
+    name: '',
+    price: '',
+    location: '',
+    description: '',
+    image: ''
   }
 
-  if (Number(props.price) === 0 || Number.isNaN(Number(props.price))) {
-    props.setPriceError('Preço invalido!')
-    error = true
-  } else {
-    props.setPriceError('')
-  }
+  error.name = nameValidator({
+    field: props.name,
+    callBack: props.setNameError
+  }) as string
 
-  if (location === undefined || String(location).trim().length < 4 || props.location === "") {
-    props.setLocationError("Localização invalida!")
-    error = true
-  } else {
-    props.setLocationError("")
-  }
+  error.price = priceValidator({
+    field: props.price,
+    callBack: props.setPriceError
+  }) as string
 
-  if (props.description === undefined || String(props.description).trim().length < 4 || props.description === "") {
-    props.setDescriptionError("No minimo 15 caracteres!")
-    error = true
-  } else {
-    props.setDescriptionError("")
-  }
+  error.location = locationValidator({
+    field: props.location,
+    callBack: props.setLocationError
+  }) as string
 
-  if (props.image === undefined) {
-    props.setImageError("Selecione uma imagem!")
-    error = true
-  } else {
-    props.setImageError("")
-  }
+  error.description = descriptionValidator({
+    field: props.description,
+    callBack: props.setDescriptionError
+  }) as string
 
-  if (!error) {
+  error.image = imageValidator({
+    field: props.image,
+    callBack: props.setImageError
+  }) as string
+
+  if (
+    error.name === '' && 
+    error.price === '' && 
+    error.location === '' &&
+    error.description === '' &&
+    error.image === ''
+  ) {
     props.setSaving(true)
 
     createProduct({

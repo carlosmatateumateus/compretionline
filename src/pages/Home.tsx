@@ -43,9 +43,9 @@ export default function Home() {
     <section>
       <Header />
       <Carousel />
-      <ProductQueue title="O computador perfeito para a faculdade" products={laptopProducts}/>
+      <ProductQueue title="Estás a procurar de computador para os estudos?" products={laptopProducts}/>
       <ProductQueue title="Estás a procura de um celular para FF?" products={phoneProductValues}/> 
-      <ProductQueue title="Está na hora de teres aquele canto."products={gamerProducts}/>
+      <ProductQueue title="Já tens aquele canto gamer em casa?"products={gamerProducts}/>
       <Footer />
     </section>
   )
