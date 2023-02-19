@@ -9,7 +9,6 @@ import { api } from "../lib/axios";
 interface ProductTypes {
   id: string,
   title: string,
-  description: string,
   price: number,
   location: string,
   createdAt: string,

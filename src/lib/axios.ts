@@ -7,3 +7,7 @@ export const api = axios.create({
 export const timeApi = axios.create({
   baseURL: "http://worldtimeapi.org/api/"
 })
+
+export const locationApi = axios.create({
+  baseURL: "https://ipapi.co/json/"
+})

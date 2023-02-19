@@ -1,8 +1,9 @@
 import { FileImage, Info, X } from "phosphor-react"
 import clsx from "clsx"
+import { getStorage, ref, deleteObject } from "firebase/storage";
 
 interface ImageProps {
-  image: any,
+  image: string | any,
   imageError: string,
   imageChanged: boolean,
   setImage: Function,
@@ -10,10 +11,23 @@ interface ImageProps {
 }
 
 export default function Image({ image, imageChanged, imageError, setImage, setImageChaged }:ImageProps) {
+  const storage = getStorage();
+
   function handleUploadImage(e: any) {
     setImage(e.target.files[0])
 
     setImageChaged(true)
+  }
+
+  function deleteImage(imageUrl: string) {
+    const desertRef = ref(storage, imageUrl);
+
+    deleteObject(desertRef).then(() => {
+      console.log('Image was deleted!')
+      setImage(undefined)
+    }).catch((error) => {
+      console.log(error)
+    });
   }
 
   return (
@@ -31,14 +45,38 @@ export default function Image({ image, imageChanged, imageError, setImage, setIm
           </aside>
         </div>
       <div className="max-md:w-[90vw] p-5 w-[305px] h-[140px]  bg-[#a5b8fc3d] rounded border-[2px] border-dotted border-[#A5B8FC] flex relative flex-col gap-3 justify-center">
-        <span className="flex flex-col gap-3"> 
-          <p className="text-sm text-center">Arraste uma imagem ou selecione pela navegação do dispositivo.</p>
-          <input 
-            className="top-0 right-0 bottom-0 left-0 p-2 w-[100%] h-[100%] absolute cursor-pointer opacity-0"
-            type="file" accept=".png, .jpg, .jpeg" 
-            onChange={handleUploadImage} 
-          />
-        </span>
+        {
+          !image?
+          (
+            <span className="flex flex-col gap-3"> 
+              <p className="text-sm text-center">Arraste uma imagem ou selecione pela navegação do dispositivo.</p>
+              <input 
+                className="top-0 right-0 bottom-0 left-0 p-2 w-[100%] h-[100%] absolute cursor-pointer opacity-0"
+                type="file" accept=".png, .jpg, .jpeg" 
+                onChange={handleUploadImage} 
+              />
+            </span>
+          ):
+          (
+            <>
+            {
+              !imageChanged?
+              (
+                <div 
+                  className="absolute top-0 left-0 w-[300px] h-[136px] bg-cover  bg-left-bottom skeleton-image" 
+                  style={{backgroundImage: `url(${image})`}}
+                />
+              ):
+              (
+                <div 
+                  className="absolute top-0 left-0 w-[300px] h-[136px] bg-cover bg-left-bottom skeleton-image" 
+                  style={{backgroundImage: `url(${URL.createObjectURL(image)})`}}
+                />
+              )
+            }
+          </>
+          )
+        }
       </div>
 
       <span 
@@ -56,9 +94,7 @@ export default function Image({ image, imageChanged, imageError, setImage, setIm
                     <p>{String(image).slice(0, 30)}</p>
                     <X 
                       className="cursor-pointer"
-                      onClick={function() {
-                        setImage("")
-                      }}
+                      onClick={() => deleteImage(image)}
                     />
                   </>
                 ):
@@ -68,7 +104,7 @@ export default function Image({ image, imageChanged, imageError, setImage, setIm
                     <X 
                       className="cursor-pointer"
                       onClick={function() {
-                        setImage("")
+                        setImage(undefined)
                       }}
                     />
                   </>

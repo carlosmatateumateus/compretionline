@@ -1,7 +1,9 @@
 import { storage } from "../lib/firebase";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { uid } from 'uid/secure';
 import { api } from "../lib/axios"
+
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import imageCompression from "browser-image-compression";
 
 type User = {
   uid: string,
@@ -21,12 +23,23 @@ interface createProductProps {
   user: User | undefined
 }
 
+
 function uploadImage(image: any) {
+  const compressionOptions = {
+    maxSizeMB: 0.4,
+    useWebWorker: true
+  }
+
   const imageName = uid(60)
   const storageRef = ref(storage, `${imageName}.jpg`);
 
+
   return new Promise(async (resolve, reject) => {
-    await uploadBytes(storageRef, image).then(() => {  
+    const compressedFile = await imageCompression(image, compressionOptions);
+
+    console.log(compressedFile)
+
+    await uploadBytes(storageRef, compressedFile).then(() => {  
       getDownloadURL(ref(storage, `${imageName}.jpg`))
       .then(url => {
         resolve(url)
@@ -39,35 +52,36 @@ function uploadImage(image: any) {
 }
 
 export default async function createProduct(props: createProductProps) {
-  let photo;
-  let productId;
-
   if (props.imageChanged) {
-    photo = await uploadImage(props.image)
+    props.image = await uploadImage(props.image)
   } else {
-    photo = props.image
+    props.image = props.image
   }
   
   if (window.location.pathname !== "/product/new") {
+    console.log('Editando o producto!')
+
     await api.patch(`/product/${props.productId}`, {
       title: props.name,
-      photo,
+      photo: props.image,
       price: Number(props.price),
       description: props.description,
       location: props.location,
     })
+
   } else {
+    console.log('Criando novo producto!')
     const product = await api.post('/product', {
       userId: props.user?.uid,
       title: props.name,
-      photo,
+      photo: props.image,
       price: Number(props.price),
       description: props.description,
       location: props.location,
     })
     
-    productId = product.data.id
+    props.productId = product.data.id
   }
 
-  window.document.location = `/product/${productId}`
+  window.document.location = `/product/${props.productId}`
 }

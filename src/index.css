@@ -14,12 +14,25 @@
   animation: skeleton-loading 1s linear infinite alternate;
 }
 
+.skeleton-image {
+  animation: skeleton-image 1s linear infinite alternate;
+}
+
 @keyframes skeleton-loading {
   0% {
     background-color: hsl(200, 20%, 80%);
   }
   100% {
     background-color: hsl(200, 20%, 95%);
+  }
+}
+
+@keyframes skeleton-image {
+  0% {
+    background-color: hsla(227, 97%, 76%, 0.239);
+  }
+  100% {
+    background-color: #f7f9ff3d;
   }
 }
 

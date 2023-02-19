@@ -3,7 +3,6 @@ import ProductCard from "./ProductCard";
 interface ProductTypes {
   id: string,
   title: string,
-  description: string,
   price: number,
   location: string,
   createdAt: string,
@@ -32,7 +31,7 @@ export default function ProductQueue ({ title, products }: ProductQueueProps) {
                   key={index}
                   title={product.title}
                   price={product.price}
-                  description={product.description}
+                  location={product.location}
                   imgSrc={product.photo}
                   id={product.id}
                 />
@@ -46,7 +45,7 @@ export default function ProductQueue ({ title, products }: ProductQueueProps) {
                   key={index}
                   title={"???"}
                   price={0.00}
-                  description={"???"}
+                  location={"???"}
                   imgSrc={undefined}
                   id={undefined}
                 />

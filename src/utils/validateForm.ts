@@ -123,22 +123,6 @@ function imageValidator(props: fieldImageValidator) {
     error = ""
   }
 
-  if (props.imageChanged) {
-    const size = parseInt(String(props.default.field.size / 1024))
-
-    if (size > 1000) {
-      props.default.callBack('Imagem muito grande!')
-      error = "error"
-    } else if (size < 15) {
-      props.default.callBack('Imagem sem nitidez!')
-      error = "error"
-    } else {
-      error = ""
-    }
-  } else {
-    error = ""
-  }
-
   return error
 }
 
@@ -196,6 +180,7 @@ export default function validateForm(props:validateFormProps) {
       price: props.price,
       imageChanged: props.imageChanged,
       user: props.user,
+      productId: props.productId
     })
   }
 }

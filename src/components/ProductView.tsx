@@ -53,8 +53,8 @@ const ProductView = (props: ProductTypes) => {
         className="h-[360px] w-[400px] flex-shrink-0 no-auto"
       >
         <aside 
-          className="h-[100%] w-[100%] rounded bg-cover skeleton"  
-          style={{backgroundImage: `url(${props?.photo})`}} 
+          className="h-[100%] w-[100%] rounded skeleton bg-left-bottom"  
+          style={{backgroundImage: `url(${props?.photo})`, backgroundSize: 'cover'}} 
         />
       </article>
       <div className="w-[60%] max-[1000px]:w-[400px]">

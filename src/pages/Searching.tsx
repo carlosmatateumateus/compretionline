@@ -12,7 +12,6 @@ import useAuth from "../hooks/useAuth";
 interface ProductTypes {
   id: string,
   title: string,
-  description: string,
   price: number,
   location: string,
   createdAt: string,
@@ -82,7 +81,7 @@ export default function Searching() {
                           title={product.title}
                           price={product.price}
                           imgSrc={product.photo}
-                          description={product.description}
+                          location={product.location}
                           id={product.id}
                         />
                       </div>

@@ -1,7 +1,9 @@
+import { MapPin } from "phosphor-react"
+
 interface ProductTypes {
   id: string | undefined,
   title: string | undefined,
-  description: string | undefined,
+  location: string | undefined,
   price: number | undefined,
   imgSrc: string | undefined
 }
@@ -18,7 +20,11 @@ export default function ProductCard(props: ProductTypes) {
         <h4 className="font-medium text-sm text-[#24242E] select-none">${ Number(props?.price) }</h4>
       </div>
 
-      <p className="text-sm text-[#BBBBBB] select-none">{ String(props?.description).slice(0, 13) }...</p>
+      <span className="text-[#474747] flex gap-2 items-center mb-2 text-[14px]">
+        <MapPin />
+        { props?.location }
+      </span>
+
       {
         props.id?
         (

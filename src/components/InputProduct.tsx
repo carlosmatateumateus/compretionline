@@ -37,7 +37,7 @@ export default function InputProduct({ label, placeHolder, inputValue, setValue,
         ):
         (
           <textarea
-            className="max-md:w-[90vw] resize-none p-5 w-[305px] h-[217px]  rounded border text-[14px] border-[#24242E] placeholder:text-[14px]"
+            className="max-md:w-[90vw] resize-none p-5 w-[305px] h-[328px]  rounded border text-[14px] border-[#24242E] placeholder:text-[14px]"
             placeholder={placeHolder}
             onChange={(e) => { setValue(e.target.value) }}
             value={inputValue}

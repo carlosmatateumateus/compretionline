@@ -4,7 +4,7 @@ import Header from "../components/Header"
 
 import InputProduct from "../components/InputProduct"
 
-import { api } from "../lib/axios"
+import { api, locationApi } from "../lib/axios"
 import useAuth from "../hooks/useAuth"
 import { useParams } from "react-router-dom"
 
@@ -53,6 +53,11 @@ export default function NewProduct() {
           setImage(value.data.photo)
         }
 
+      } else {
+        console.log('Location!')
+        const locationValue = await locationApi.get('')
+
+        setLocation(`${locationValue.data.country_name}, ${locationValue.data.country_capital}`)
       }
     }
 
@@ -62,6 +67,8 @@ export default function NewProduct() {
   }, [])
 
   function handleSubmit(e: any) {
+    console.log(location)
+
     e.preventDefault()
 
     validateForm({
