@@ -56,7 +56,6 @@ export default async function createProduct(props: createProductProps) {
       description: props.description,
       location: props.location,
     })
-    console.log('Postei o producto')
   } else {
     const product = await api.post('/product', {
       userId: props.user?.uid,
@@ -64,9 +63,9 @@ export default async function createProduct(props: createProductProps) {
       photo,
       price: Number(props.price),
       description: props.description,
-      location,
+      location: props.location,
     })
-
+    
     productId = product.data.id
   }
 

@@ -20,18 +20,19 @@ const ProductPage = () => {
   const { productId } = useParams() as any
 
   const [product, setProduct] = useState({} as ProductTypes)
-  const [time, setTime] = useState() as any
+  const [time, setTime] = useState("???") 
 
   useEffect(() => {
     setProduct({
       title: "???",
       description: "???",
-      createdAt: "???",
+      createdAt: time,
       location: "???",
       photo: undefined,
       price: 0.00,
       userId: undefined
     })
+
     async function callApi() {
       const value = await api.get(`/product/${productId}`)
 

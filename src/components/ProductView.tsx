@@ -74,7 +74,7 @@ const ProductView = (props: ProductTypes) => {
         <h4 className="text-lg text-[#474747] mb-[19px]">{props.price} $</h4>
         <div className="flex gap-2 rounded">
         {
-          !props.id?
+          !props.title?
           (
             <>
               {

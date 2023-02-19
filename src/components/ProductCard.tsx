@@ -19,11 +19,21 @@ export default function ProductCard(props: ProductTypes) {
       </div>
 
       <p className="text-sm text-[#BBBBBB] select-none">{ String(props?.description).slice(0, 13) }...</p>
-      <a>
-        <button className="h-[50px] w-[200px] border border-[#24242E] text-[15px] rounded select-none active:bg-[#24242E] active:text-white">
-          Mais informações
-        </button>
-      </a>
+      {
+        props.id?
+        (
+          <a href={`/product/${props.id}`}>
+            <button className="h-[50px] w-[200px] border border-[#24242E] text-[15px] rounded select-none active:bg-[#24242E] active:text-white">
+              Informações
+            </button>
+          </a>
+        ):
+        (
+          <button className="h-[50px] w-[200px] border border-[#24242E] text-[15px] rounded select-none active:bg-[#24242E] active:text-white">
+              Carregando ....
+          </button>
+        )
+      }
 
     </article>
   )
