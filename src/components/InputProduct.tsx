@@ -10,6 +10,7 @@ const categoryOptions = [
 ]
 
 interface InputProductProps {
+  id?: string,
   isTextArea?: boolean,
   isSelect?: boolean,
   label: string,
@@ -21,8 +22,8 @@ interface InputProductProps {
 
 export default function InputProduct(props:InputProductProps) {
   return (
-    <div className="flex flex-col">
-      <div className="mb-[16px] w-[305px] flex justify-between">
+    <div className="flex flex-col" id={props.id}>
+      <div className="max-md:w-[90vw] mb-[16px] w-[305px] flex justify-between">
         <label>{props.label} *</label>
         <aside 
           className={clsx("flex items-center gap-1 text-[#ff6961]", {
@@ -53,7 +54,7 @@ export default function InputProduct(props:InputProductProps) {
               !props.isTextArea?
               (
                 <input 
-                  className="max-md:w-[90vw] rounded border h-[56px] text-[14px] outline-none border-[#24242E] p-4 placeholder:text-[14px] placeholder:text-[#a5a5a5]"
+                  className="max-md:w-[100%] rounded border h-[56px] text-[14px] outline-none border-[#24242E] p-4 placeholder:text-[14px] placeholder:text-[#a5a5a5]"
                   placeholder={props.placeHolder}
                   onChange={(e) => { props.setValue(e.target.value) }}
                   value={props.inputValue}
@@ -61,7 +62,7 @@ export default function InputProduct(props:InputProductProps) {
               ):
               (
                 <textarea
-                  className="max-md:w-[90vw] resize-none p-4 w-[305px] h-[220px] outline-none rounded border text-[14px] border-[#24242E] placeholder:text-[14px] placeholder:text-[#a5a5a5]"
+                  className="max-md:w-[100%] resize-none p-4 w-[305px] h-[220px] outline-none rounded border text-[14px] border-[#24242E] placeholder:text-[14px] placeholder:text-[#a5a5a5]"
                   placeholder={props.placeHolder}
                   onChange={(e) => { props.setValue(e.target.value) }}
                   value={props.inputValue}

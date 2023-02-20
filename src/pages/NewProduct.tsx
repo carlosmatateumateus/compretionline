@@ -107,13 +107,14 @@ export default function NewProduct() {
           onSubmit={handleSubmit}
         >
 
-          <h2 className="text-[24px] text-[#24242E] font-medium leading-relaxed" onClick={() => console.log(Number(price))}>Products details</h2>
-          <p className="text-[15px] text-[#AEAEAE]">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <h2 className="text-[24px] text-[#24242E] font-medium leading-relaxed">Criação e edição de productos</h2>
+          <p className="text-[15px] text-[#AEAEAE]">Venda productos de tecnologia das mais direferentes variedades...</p>
           <hr className="mt-[17px] w-[90%]"/>
 
           <main className="flex gap-6 mt-[17px] flex-wrap">
             <div className="flex flex-col gap-5">
               <Image
+                id="product-image"
                 image={image}
                 imageChanged={imageChanged}
                 imageError={imageError}
@@ -122,6 +123,7 @@ export default function NewProduct() {
               />
 
               <InputProduct 
+                id="product-name"
                 label="Nome"
                 placeHolder="Qual é o nome do producto?"
                 inputValue={name} 
@@ -130,6 +132,7 @@ export default function NewProduct() {
               />
 
               <InputProduct 
+                id="product-price"
                 label="Preço"
                 placeHolder="Qual é o preço do producto?"
                 inputValue={price} 
@@ -141,6 +144,7 @@ export default function NewProduct() {
 
             <div className="flex flex-col gap-5">
               <InputProduct 
+                id="product-description"
                 label="Descrição"
                 placeHolder="Faça uma breve e descrição sobre o producto"
                 inputValue={description} 
@@ -150,6 +154,7 @@ export default function NewProduct() {
               /> 
 
               <InputProduct 
+                id="product-location"
                 label="Localização"
                 placeHolder="Onde você está localizado?"
                 inputValue={location} 
@@ -158,6 +163,7 @@ export default function NewProduct() {
               />
 
               <InputProduct 
+                id="product-category"
                 label="Categoria"
                 placeHolder="Onde você está localizado?"
                 inputValue={category} 

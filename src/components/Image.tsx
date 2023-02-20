@@ -3,6 +3,7 @@ import clsx from "clsx"
 import { getStorage, ref, deleteObject } from "firebase/storage";
 
 interface ImageProps {
+  id?: string,
   image: string | any,
   imageError: string,
   imageChanged: boolean,
@@ -10,13 +11,13 @@ interface ImageProps {
   setImageChaged: Function
 }
 
-export default function Image({ image, imageChanged, imageError, setImage, setImageChaged }:ImageProps) {
+export default function Image(props:ImageProps) {
   const storage = getStorage();
 
   function handleUploadImage(e: any) {
-    setImage(e.target.files[0])
+    props.setImage(e.target.files[0])
     
-    setImageChaged(true)
+    props.setImageChaged(true)
   }
 
   function deleteImage(imageUrl: string) {
@@ -24,29 +25,29 @@ export default function Image({ image, imageChanged, imageError, setImage, setIm
 
     deleteObject(desertRef).then(() => {
       console.log('Image was deleted!')
-      setImage(undefined)
+      props.setImage(undefined)
     }).catch((error) => {
       throw new Error(error)
     });
   }
 
   return (
-    <div className="flex flex-col gap-[17px]">
-      <div className="mb-[7px] w-[305px] flex justify-between">
+    <div className="flex flex-col gap-[17px]" id={props.id}>
+      <div className="max-md:w-[90vw] mb-[7px] w-[305px] flex justify-between">
         <label>Fotografia *</label>
           <aside 
             className={clsx("flex items-center gap-1 text-[#ff6961]", {
-              "hidden": imageError==="" || imageError===undefined,
-              "block": imageError!==""
+              "hidden": props.imageError==="" || props.imageError===undefined,
+              "block": props.imageError!==""
             })}
           > 
             <Info />
-            <span className="text-[14px]">{ imageError }</span>
+            <span className="text-[14px]">{ props.imageError }</span>
           </aside>
         </div>
-      <div className="max-md:w-[90vw] p-5 w-[305px] h-[140px]  bg-[#a5b8fc3d] rounded border-[2px] border-dotted border-[#A5B8FC] flex relative flex-col gap-3 justify-center">
+      <div className="max-md:w-[100%] p-5 w-[305px] h-[140px]  bg-[#a5b8fc3d] rounded border-[2px] border-dotted border-[#A5B8FC] flex relative flex-col gap-3 justify-center">
         {
-          !image?
+          !props.image?
           (
             <span className="flex flex-col gap-3"> 
               <p className="text-sm text-center">Arraste uma imagem ou selecione pela navegação do dispositivo.</p>
@@ -60,17 +61,17 @@ export default function Image({ image, imageChanged, imageError, setImage, setIm
           (
             <>
             {
-              !imageChanged?
+              !props.imageChanged?
               (
                 <div 
-                  className="max-md:w-[90vw] absolute top-0 left-0 w-[300px] h-[136px] bg-cover  bg-left-bottom skeleton-image" 
-                  style={{backgroundImage: `url(${image})`}}
+                  className="max-md:w-[100%] absolute top-0 left-0 w-[300px] h-[136px] bg-cover  bg-left-bottom skeleton-image" 
+                  style={{backgroundImage: `url(${props.image})`}}
                 />
               ):
               (
                 <div 
-                  className="max-md:w-[90vw] absolute top-0 left-0 w-[300px] h-[136px] bg-cover bg-left-bottom skeleton-image" 
-                  style={{backgroundImage: `url(${URL.createObjectURL(image)})`}}
+                  className="max-md:w-[100%] absolute top-0 left-0 w-[300px] h-[136px] bg-cover bg-left-bottom skeleton-image" 
+                  style={{backgroundImage: `url(${URL.createObjectURL(props.image)})`}}
                 />
               )
             }
@@ -84,27 +85,27 @@ export default function Image({ image, imageChanged, imageError, setImage, setIm
           placeholder="Qual é a sua localização actual?"
       >
         {
-          image?
+          props.image?
           (
             <>
               {
-                !imageChanged?
+                !props.imageChanged?
                 (
                   <>
-                    <p>{String(image).slice(0, 30)}</p>
+                    <p>{String(props.image).slice(0, 30)}</p>
                     <X 
                       className="cursor-pointer"
-                      onClick={() => deleteImage(image)}
+                      onClick={() => deleteImage(props.image)}
                     />
                   </>
                 ):
                 (
                   <>
-                    <p>{String(image?.name).slice(0, 30)}</p>
+                    <p>{String(props.image?.name).slice(0, 30)}</p>
                     <X 
                       className="cursor-pointer"
                       onClick={function() {
-                        setImage(undefined)
+                        props.setImage(undefined)
                       }}
                     />
                   </>

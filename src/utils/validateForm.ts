@@ -46,6 +46,10 @@ function nameValidator(props: fieldValidator) {
     props.callBack('')
     error = ""
   }
+  
+  if (error) {
+    window.document.location = "#product-name"
+  }
 
   return error
 }
@@ -65,6 +69,10 @@ function priceValidator(props: fieldValidator) {
   } else {
     props.callBack('')
     error = ""
+  }
+
+  if (error) {
+    window.document.location = "#price-name"
   }
 
   return error
@@ -87,6 +95,10 @@ function locationValidator(props: fieldValidator) {
     error = ""
   }
 
+  if (error) {
+    window.document.location = "#product-location"
+  }
+
   return error
 }
 
@@ -99,6 +111,10 @@ function categoryValidator(props: fieldValidator) {
   } else {
     props.callBack("")
     error = ""
+  }
+
+  if (error) {
+    window.document.location = "#product-category"
   }
 
   return error
@@ -119,24 +135,27 @@ function descriptionValidator(props: fieldValidator) {
     error = ""
   }
 
+  if (error) {
+    window.document.location = "#product-description"
+  }
+
   return error
 }
 
-type fieldImageValidator = {
-  default: fieldValidator,
-  imageChanged: boolean,
-}
-
-function imageValidator(props: fieldImageValidator) {
+function imageValidator(props: fieldValidator) {
   let error;
 
-  if (props.default.field === undefined) {
-    props.default.callBack("Selecione uma imagem!")
+  if (props.field === undefined) {
+    props.callBack("Selecione uma imagem!")
     error = "error"
   } else {
-    props.default.callBack("")
+    props.callBack("")
     error = "error"
     error = ""
+  }
+
+  if (error) {
+    window.scrollTo(0, 0)
   }
 
   return error
@@ -151,6 +170,11 @@ export default function validateForm(props:validateFormProps) {
     description: '',
     image: ''
   }
+
+  error.category = categoryValidator({
+    field: props.category,
+    callBack: props.setCategoryError
+  })
 
   error.name = nameValidator({
     field: props.name,
@@ -167,22 +191,14 @@ export default function validateForm(props:validateFormProps) {
     callBack: props.setLocationError
   })
 
-  error.category = categoryValidator({
-    field: props.category,
-    callBack: props.setCategoryError
-  })
-
   error.description = descriptionValidator({
     field: props.description,
     callBack: props.setDescriptionError
   })
 
   error.image = imageValidator({
-    default: {
-      field: props.image,
-      callBack: props.setImageError,
-    },
-    imageChanged: props.imageChanged
+    field: props.image,
+    callBack: props.setImageError,
   })
 
   if (
