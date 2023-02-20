@@ -15,7 +15,7 @@ export default function Image({ image, imageChanged, imageError, setImage, setIm
 
   function handleUploadImage(e: any) {
     setImage(e.target.files[0])
-
+    
     setImageChaged(true)
   }
 
@@ -26,12 +26,12 @@ export default function Image({ image, imageChanged, imageError, setImage, setIm
       console.log('Image was deleted!')
       setImage(undefined)
     }).catch((error) => {
-      console.log(error)
+      throw new Error(error)
     });
   }
 
   return (
-    <div className="flex flex-col gap-[16px]">
+    <div className="flex flex-col gap-[17px]">
       <div className="mb-[7px] w-[305px] flex justify-between">
         <label>Fotografia *</label>
           <aside 
@@ -63,13 +63,13 @@ export default function Image({ image, imageChanged, imageError, setImage, setIm
               !imageChanged?
               (
                 <div 
-                  className="absolute top-0 left-0 w-[300px] h-[136px] bg-cover  bg-left-bottom skeleton-image" 
+                  className="max-md:w-[90vw] absolute top-0 left-0 w-[300px] h-[136px] bg-cover  bg-left-bottom skeleton-image" 
                   style={{backgroundImage: `url(${image})`}}
                 />
               ):
               (
                 <div 
-                  className="absolute top-0 left-0 w-[300px] h-[136px] bg-cover bg-left-bottom skeleton-image" 
+                  className="max-md:w-[90vw] absolute top-0 left-0 w-[300px] h-[136px] bg-cover bg-left-bottom skeleton-image" 
                   style={{backgroundImage: `url(${URL.createObjectURL(image)})`}}
                 />
               )

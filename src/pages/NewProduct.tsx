@@ -29,6 +29,9 @@ export default function NewProduct() {
   const [description, setDescription] = useState() as any
   const [descriptionError, setDescriptionError] = useState() as any
 
+  const [category, setCategory] = useState() as any
+  const [categoryError, setCategoryError] = useState() as any
+
   const [image, setImage] = useState() as any
   const [imageError, setImageError] = useState() as any
 
@@ -50,11 +53,11 @@ export default function NewProduct() {
           setPrice(value.data.price)
           setDescription(value.data.description)
           setLocation(value.data.location)
+          setCategory(value.data.category)
           setImage(value.data.photo)
         }
 
       } else {
-        console.log('Location!')
         const locationValue = await locationApi.get('')
 
         setLocation(`${locationValue.data.country_name}, ${locationValue.data.country_capital}`)
@@ -64,26 +67,32 @@ export default function NewProduct() {
     return () => {
       validateProduct()
     }
-  }, [])
+  }, [productId])
 
   function handleSubmit(e: any) {
-    console.log(location)
-
     e.preventDefault()
 
     validateForm({
       name,
-      description,
-      location,
-      productId,
-      image,
-      price,
-      setDescriptionError,
-      setImageError,
-      setLocationError,
       setNameError,
+
+      description,
+      setDescriptionError,
+
+      location,
+      setLocationError,
+
+      price: Number(price),
       setPriceError,
+
+      category,
+      setCategoryError,
+      
+      image,
+      setImageError,
+    
       imageChanged,
+      productId,
       setSaving,
       user
     })
@@ -138,7 +147,7 @@ export default function NewProduct() {
                 setValue={setDescription} 
                 inputError={descriptionError}
                 isTextArea
-              />
+              /> 
 
               <InputProduct 
                 label="Localização"
@@ -147,6 +156,16 @@ export default function NewProduct() {
                 setValue={setLocation} 
                 inputError={locationError}
               />
+
+              <InputProduct 
+                label="Categoria"
+                placeHolder="Onde você está localizado?"
+                inputValue={category} 
+                setValue={setCategory} 
+                inputError={categoryError}
+                isSelect
+              /> 
+
             </div>
           </main>
 

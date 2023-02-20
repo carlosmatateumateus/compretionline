@@ -10,13 +10,15 @@ interface validateFormProps {
   productId?: string | undefined,
   name: string
   setNameError: Function,
-  price: string,
+  price: number,
   setPriceError: Function,
   location: string,
   setLocationError: Function,
   description: string,
   setDescriptionError: Function,
   image: string,
+  setCategoryError: Function,
+  category: string | any,
   setImageError: Function,
   imageChanged: boolean,
   setSaving: Function,
@@ -51,13 +53,13 @@ function nameValidator(props: fieldValidator) {
 function priceValidator(props: fieldValidator) {
   let error;
 
-  if (Number.isNaN(Number(props.field))) {
+  if (Number.isNaN(props.field)) {
     props.callBack('Preço invalido!')
     error = "error"
-  } else if(Number(props.field) < 1) {
+  } else if(props.field < 1) {
     props.callBack('Preço muito baixo!')
     error = "error"
-  } else if(Number(props.field) > 1000000000000) {
+  } else if(props.field > 1000000000000) {
     props.callBack('Preço muito elevado!')
     error = "error"
   } else {
@@ -79,6 +81,20 @@ function locationValidator(props: fieldValidator) {
     error = "error"
   } else if (props.field.length > 30) {
     props.callBack('Cordenada exagerada!')
+    error = "error"
+  } else {
+    props.callBack("")
+    error = ""
+  }
+
+  return error
+}
+
+function categoryValidator(props: fieldValidator) {
+  let error;
+
+  if (props.field === undefined) {
+    props.callBack("Categoria invalida!")
     error = "error"
   } else {
     props.callBack("")
@@ -131,6 +147,7 @@ export default function validateForm(props:validateFormProps) {
     name: '',
     price: '',
     location: '',
+    category: '',
     description: '',
     image: ''
   }
@@ -138,22 +155,27 @@ export default function validateForm(props:validateFormProps) {
   error.name = nameValidator({
     field: props.name,
     callBack: props.setNameError
-  }) as string
+  })
 
   error.price = priceValidator({
     field: props.price,
     callBack: props.setPriceError
-  }) as string
+  })
 
   error.location = locationValidator({
     field: props.location,
     callBack: props.setLocationError
-  }) as string
+  })
+
+  error.category = categoryValidator({
+    field: props.category,
+    callBack: props.setCategoryError
+  })
 
   error.description = descriptionValidator({
     field: props.description,
     callBack: props.setDescriptionError
-  }) as string
+  })
 
   error.image = imageValidator({
     default: {
@@ -161,12 +183,13 @@ export default function validateForm(props:validateFormProps) {
       callBack: props.setImageError,
     },
     imageChanged: props.imageChanged
-  }) as string
+  })
 
   if (
     error.name === '' && 
     error.price === '' && 
     error.location === '' &&
+    error.category === '' &&
     error.description === '' &&
     error.image === ''
   ) {
@@ -174,10 +197,11 @@ export default function validateForm(props:validateFormProps) {
 
     createProduct({
       name: props.name,
-      description: props.description,
-      image: props.image,
-      location: props.location,
       price: props.price,
+      description: props.description,
+      location: props.location,
+      category: props.category,
+      image: props.image,
       imageChanged: props.imageChanged,
       user: props.user,
       productId: props.productId

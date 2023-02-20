@@ -19,16 +19,16 @@ interface ProductTypes {
 export default function Home() {
   const [laptopProducts, setLaptopProducts] = useState([] as Array<ProductTypes>)
   const [phoneProductValues, setPhoneProductValues] = useState([] as Array<ProductTypes>)
-  const [gamerProducts, setGamerProducts] = useState([] as Array<ProductTypes>)
+  const [musicalProducts, setMusicalProduct] = useState([] as Array<ProductTypes>)
 
   useEffect(() => {
     async function callProducts() { 
-      let laptopProductsValues = await api.get('/product/search/computador')
-      let phoneProductValues = await api.get('/product/search/celular')
-      let gamerProductsValues = await api.get('/product/search/gamer')
+      let laptopProductsValues = await api.get('/product/category/computadores')
+      let phoneProductValues = await api.get('/product/category/smartphones')
+      let musicalProductsValues = await api.get('/product/category/musical')
 
       setLaptopProducts(laptopProductsValues.data.products)
-      setGamerProducts(gamerProductsValues.data.products)
+      setMusicalProduct(musicalProductsValues.data.products)
       setPhoneProductValues(phoneProductValues.data.products)
 
     }
@@ -42,9 +42,9 @@ export default function Home() {
     <section>
       <Header />
       <Carousel />
-      <ProductQueue title="Estás a procurar de computador para os estudos?" products={laptopProducts}/>
-      <ProductQueue title="Estás a procura de um celular para FF?" products={phoneProductValues}/> 
-      <ProductQueue title="Já tens aquele canto gamer em casa?"products={gamerProducts}/>
+      <ProductQueue title="Estás a procurar de material para os estudos?" products={laptopProducts}/>
+      <ProductQueue title="Estás a procura de um celular top de gama?" products={phoneProductValues}/> 
+      <ProductQueue title="Está na hora de realizar os teus sonhos!"products={musicalProducts}/>
       <Footer />
     </section>
   )

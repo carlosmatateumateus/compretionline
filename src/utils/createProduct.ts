@@ -16,8 +16,9 @@ interface createProductProps {
   productId?: string | undefined,
 
   name: string,
-  price: string,
+  price: number,
   location: string,
+  category: string,
   description: string,
   image: any,
   user: User | undefined
@@ -59,25 +60,36 @@ export default async function createProduct(props: createProductProps) {
   }
   
   if (window.location.pathname !== "/product/new") {
-    console.log('Editando o producto!')
 
     await api.patch(`/product/${props.productId}`, {
       title: props.name,
-      photo: props.image,
-      price: Number(props.price),
-      description: props.description,
+      price: props.price,
       location: props.location,
+      category: props.category,
+      description: props.description,
+      photo: props.image,
     })
 
   } else {
-    console.log('Criando novo producto!')
+    console.table(
+      {
+        title: props.name,
+        price: props.price,
+        location: props.location,
+        category: props.category,
+        description: props.description,
+        photo: props.image,
+        userId: props.user?.uid,
+      }
+    )
     const product = await api.post('/product', {
-      userId: props.user?.uid,
       title: props.name,
-      photo: props.image,
-      price: Number(props.price),
-      description: props.description,
+      price: props.price,
       location: props.location,
+      category: props.category,
+      description: props.description,
+      photo: props.image,
+      userId: props.user?.uid,
     })
     
     props.productId = product.data.id
