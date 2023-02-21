@@ -34,7 +34,7 @@ export default function App() {
       element: <NewProduct />
     },
     {
-      path: "/search/:title",
+      path: "/search/:title/:categoryParam?",
       element: <Searching />
     },
     {

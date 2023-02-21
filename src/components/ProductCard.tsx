@@ -22,20 +22,20 @@ export default function ProductCard(props: ProductTypes) {
 
       <span className="text-[#474747] flex gap-2 items-center mb-2 text-[14px]">
         <MapPin />
-        { props?.location }
+        { props?.location?.slice(0, 12) }...
       </span>
 
       {
         props.id?
         (
           <a href={`/product/${props.id}`}>
-            <button className="h-[50px] w-[200px] border border-[#24242E] text-[15px] rounded select-none active:bg-[#24242E] active:text-white">
+            <button className="h-[50px] w-[200px] border border-black text-[15px] rounded select-none active:bg-black active:text-white">
               Informações
             </button>
           </a>
         ):
         (
-          <button className="h-[50px] w-[200px] border border-[#24242E] text-[15px] rounded select-none active:bg-[#24242E] active:text-white">
+          <button className="h-[50px] w-[200px] border border-black text-[15px] rounded select-none active:bg-black active:text-white">
               Carregando ....
           </button>
         )

@@ -1,3 +1,4 @@
+import { LinkedinLogo, MagnifyingGlass } from "phosphor-react";
 import SearchBar from "./SearchBar";
 import useAuth from "../hooks/useAuth";
 import Avatar from "./Avatar";
@@ -5,112 +6,96 @@ import clsx from "clsx";
 
 import { useState } from "react";
 
-import { MagnifyingGlass, PlusCircle, Storefront, GoogleLogo } from "phosphor-react";
+import { GoogleLogo } from "phosphor-react";
 
-export default function Header() {
+interface HeaderProps {
+  title?: string,
+}
+
+export default function Header(props:HeaderProps) {
   const [searchMobile, setSearchMobile] = useState(false)
-
+  
   const { user, signInWithGoogle } = useAuth()
 
   return (
     <header className="h-12 flex items-center justify-between on-center mt-2">
-      <>
-        <div 
-          className={clsx("flex gap-4", {
-            "hidden": searchMobile === true,
-            "flex": searchMobile === false
+      <div 
+        className={clsx({
+          "hidden": searchMobile,
+          "flex gap-4": !searchMobile,
+        })}
+        >
+        <a href="/">
+          <img 
+            src="/logo.svg" 
+            alt="compretionline logo" 
+            className="max-[300px]:hidden select-none" 
+            draggable="false" 
+          />
+        </a>
+          <SearchBar 
+            value={props.title} 
+            buttonChildren="search" 
+            className="flex max-md:hidden w-[330px]" 
+            setValue={() => {}}
+          />
+      </div>
+      <div
+        className={clsx({
+          "hidden": !searchMobile,
+          "block": searchMobile,
+        })}
+      >
+        <SearchBar 
+          value={props.title} 
+          buttonChildren="cancelar" 
+          setValue={setSearchMobile}
+          className={clsx("w-[95vw] ml-auto justify-center",{
+            "flex": searchMobile,
+            "hidden": !searchMobile,
           })}
-          >
-          <a href="/">
-            <img src="/logo.svg" alt="compretionline logo" className="max-[300px]:hidden select-none" draggable="false" />
-            <abbr title="compretionline logo">
-              <Storefront size="33" weight="light" className="hidden max-[300px]:block select-none" />
-            </abbr>
-          </a>
-          <SearchBar />
+        />
+      </div>
+      <div 
+        className={clsx({
+          "hidden": searchMobile,
+          "flex items-center gap-4": !searchMobile,
+        })}
+        >
+        <div className="hidden max-md:block">
+          <button 
+            className="border-[0.1px] border-black  text-black h-[35px] w-[35px] flex items-center justify-center rounded-full active:bg-black active:text-white"
+            onClick={() => setSearchMobile(true)}
+            >
+            <MagnifyingGlass weight="bold"/>
+          </button>
         </div>
-        { !user?
-        (
-          <div 
-            className={clsx("flex items-center flex-row-reverse gap-2", {
-              "hidden": searchMobile === true,
-              "flex": searchMobile === false
-            })}
-            >
-            <button 
-              className="flex p-3 gap-3  bg-white border border-[#696969] rounded max-md:hidden active:brightness-95" 
-              onClick={() => signInWithGoogle()}
-            >
-              <GoogleLogo size="20" weight="bold"/>
-              <span className="font-medium text-sm text-[#24242E]"> Iniciar sesão com o Google </span>
-            </button>
-            <button 
-              className="IconButton bg-white h-[35px] w-[35px] hidden max-md:inline-flex items-center justify-center rounded-full" 
-              onClick={() => signInWithGoogle()}
-            >
-              <GoogleLogo size="20" weight="bold"/>
-            </button>
-            <button 
-              className="IconButton bg-white h-[35px] w-[35px] hidden max-md:inline-flex items-center justify-center rounded-full" aria-label="Search Products"
-              onClick={() => setSearchMobile(searchMobile?(false):(true))}
-            >
-              <MagnifyingGlass 
-                size="22px" 
-                weight="light" 
-                className="cursor-pointer header-icon"
-              />
-            </button>
-          </div>
-        ):
-        (
-          <div 
-            className="flex items-center gap-3" 
-            style={{display: searchMobile?("none"):("flex")}}
-          >
-            <button 
-              className="IconButton bg-white h-[35px] w-[35px] hidden max-md:inline-flex items-center justify-center rounded-full" aria-label="Search Products"
-              onClick={() => setSearchMobile(searchMobile?(false):(true))}
-            >
-              <MagnifyingGlass 
-                size="22px" 
-                weight="light" 
-                className="cursor-pointer header-icon"
-              />
-            </button>
-            <a href="/product/new" className="IconButton bg-white h-[35px] w-[35px] inline-flex items-center justify-center rounded-full max-md:hidden" aria-label="Go to post a product form">
-              <PlusCircle size="23px" weight="light" className="cursor-pointer header-icon"/>
-            </a>
-            <a href="/product/my/" className="max-md:hidden">
-              <button className="IconButton bg-white h-[35px] w-[35px] inline-flex items-center justify-center rounded-full" aria-label="Go to my products">
-                <Storefront size="23px" weight="light" className="cursor-pointer header-icon"/>
-              </button>
-            </a>
-            <Avatar />
-          </div>
-        )
-        }
-        <div 
-          className={clsx("w-full h-full justify-between items-center", {
-            "flex": searchMobile === true,
-            "hidden": searchMobile === false
-          })}
-          >
-          <div className="bg-[#f9f9f977] w-[75%] h-full flex p-3 gap-4 border border-[#bdbdbd] items-center leading-6 text-slate-400 rounded-md py-1.5 pl-2 pr-3">
-            <MagnifyingGlass className="text-slate-400"/>
-            <input 
-              type="search" 
-              className="w-[90%] h-full bg-transparent outline-none text-sm"
-              placeholder="Oque estás a procura?"
-            />
-          </div>
-          <span 
-            onClick={() => setSearchMobile(searchMobile?(false):(true))}
-            className="cursor-pointer text-base text-[#24242e] font-medium"
-          >
-            Cancelar
-          </span>
+        <div>
+          {
+            !user?
+            (
+              <div>
+                <button
+                  className="flex p-3 gap-3  bg-white  text-black border border-black rounded max-md:hidden active:bg-black active:text-white"
+                  onClick={() => signInWithGoogle()}
+                  >
+                  <GoogleLogo size="20" weight="bold"/>
+                  <span className="font-medium text-sm"> Iniciar sesão com o Google </span>
+                </button>
+                <button
+                  className="hidden max-md:flex border-[0.1px] bg-black text-white h-[35px] w-[35px] items-center justify-center rounded-full active:bg-white active:text-black active:border-black"
+                  onClick={() => signInWithGoogle()}
+                  >
+                  <GoogleLogo size="20" weight="bold"/>
+                </button>
+              </div>
+            ):
+            (
+              <Avatar />
+            )
+          }
         </div>
-      </>
+      </div>
     </header>
   )
 }

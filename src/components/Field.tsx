@@ -1,15 +1,9 @@
+import { OptionsOrGroups, GroupBase } from "react-select"
 import clsx from "clsx"
 import { Info } from "phosphor-react"
-import Select from 'react-select';
+import Select from "./Select";
 
-const categoryOptions = [
-  { value: "smartphones", label: "smartphones" },
-  { value: "computadores", label: "computadores" },
-  { value: "gamers", label: "gamers", },
-  { value: "musical", label: "musical" }
-]
-
-interface InputProductProps {
+interface FieldProps {
   id?: string,
   isTextArea?: boolean,
   isSelect?: boolean,
@@ -18,9 +12,13 @@ interface InputProductProps {
   inputValue: string | any,
   setValue: Function,
   inputError: string,
+
+  // Select
+  options?: OptionsOrGroups<any, GroupBase<any>> | undefined,
+
 }
 
-export default function InputProduct(props:InputProductProps) {
+export default function Field(props:FieldProps) {
   return (
     <div className="flex flex-col" id={props.id}>
       <div className="max-md:w-[90vw] mb-[16px] w-[305px] flex justify-between">
@@ -39,13 +37,10 @@ export default function InputProduct(props:InputProductProps) {
          props.isSelect?
         (
           <Select
-            options={categoryOptions}
-            classNamePrefix="select"
-            placeholder="Qual é a categoria?"
-            onChange={(e) => { props.setValue(e?.value) }}
-            value={categoryOptions.filter(function(option) {
-              return option.value === props.inputValue;
-            })}
+            options={props.options}
+            placeHolder={props.placeHolder}
+            setValue={props.setValue}
+            value={props.inputValue}
           />
         ):
         (

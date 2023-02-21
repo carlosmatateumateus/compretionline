@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import Footer from "../components/Footer"
 import Header from "../components/Header"
 
-import InputProduct from "../components/InputProduct"
+import Field from "../components/Field"
 
 import { api, locationApi } from "../lib/axios"
 import useAuth from "../hooks/useAuth"
@@ -12,6 +12,13 @@ import validateForm from "../utils/validateForm"
 
 import Image from "../components/Image"
 import PostAction from "../components/PostActions"
+
+const categoryOptions = [
+  { value: "smartphones", label: "smartphones" },
+  { value: "computadores", label: "computadores" },
+  { value: "gamers", label: "gamers", },
+  { value: "musical", label: "musical" }
+]
 
 export default function NewProduct() {
 
@@ -122,7 +129,7 @@ export default function NewProduct() {
                 setImageChaged={setImageChaged} 
               />
 
-              <InputProduct 
+              <Field 
                 id="product-name"
                 label="Nome"
                 placeHolder="Qual é o nome do producto?"
@@ -131,7 +138,7 @@ export default function NewProduct() {
                 inputError={nameError}
               />
 
-              <InputProduct 
+              <Field 
                 id="product-price"
                 label="Preço"
                 placeHolder="Qual é o preço do producto?"
@@ -143,7 +150,7 @@ export default function NewProduct() {
             </div>
 
             <div className="flex flex-col gap-5">
-              <InputProduct 
+              <Field 
                 id="product-description"
                 label="Descrição"
                 placeHolder="Faça uma breve e descrição sobre o producto"
@@ -153,7 +160,7 @@ export default function NewProduct() {
                 isTextArea
               /> 
 
-              <InputProduct 
+              <Field 
                 id="product-location"
                 label="Localização"
                 placeHolder="Onde você está localizado?"
@@ -162,13 +169,14 @@ export default function NewProduct() {
                 inputError={locationError}
               />
 
-              <InputProduct 
+              <Field 
                 id="product-category"
                 label="Categoria"
                 placeHolder="Onde você está localizado?"
                 inputValue={category} 
                 setValue={setCategory} 
                 inputError={categoryError}
+                options={categoryOptions}
                 isSelect
               /> 
 

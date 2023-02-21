@@ -1,35 +1,45 @@
 import { MagnifyingGlass } from "phosphor-react";
 import { useState } from "react";
 
-export default function SearchBar() {
-  const [title, setTitle] = useState()
+interface SearchBarProps {
+  className: string,
+  value?: string,
+  buttonChildren: string,
+  setValue: Function,
+}
 
-  function handleSubmit(e: any) {
+export default function SearchBar(props: SearchBarProps) {
+  const [title, setTitle] = useState() as any
+  
+  async function HandleSubmit(e:any) {
     e.preventDefault()
 
-    if (String(title).length > 0) {
-      window.document.location = `/search/${String(title).toLowerCase()}`
+    if (props.buttonChildren === "cancelar") {
+      props.setValue(false)
     }
-  }
-
-  function handleSearch(e: any) {
-    setTitle(e.target.value)
+    
+    if (title != undefined) {
+      window.document.location = `/search/${title}`
+    }
   }
 
   return (
     <form 
-      className="bg-[#f9f9f977] w-[230px] flex p-3 gap-4 border border-[#bdbdbd] items-center leading-6 text-slate-400 rounded-md py-1.5 pl-2 pr-3 max-md:hidden"
       method="get"
-      onSubmit={handleSubmit}
+      onSubmit={HandleSubmit}
       >
-      <MagnifyingGlass className="text-slate-400"/>
-      <input 
-        type="search" 
-        className="w-[90%] h-full bg-transparent outline-none text-sm"
-        placeholder="Oque estás a procura?"
-        onInput={handleSearch}
-        value={title}
-      />
+      <div className={props.className}>
+        <div className="w-[100%] border bg-[#0000000c] rounded p-3 gap-2 flex items-center select-none text-[#6e6e6e]">
+          <MagnifyingGlass weight="bold"/>
+          <input
+            placeholder="Oque estás a procura?"
+            className="h-full w-[100%] bg-transparent outline-none text-[13px]"
+            onChange={(e) => { setTitle(e.target.value) }}
+            defaultValue={props.value}
+          />
+        </div>
+        <button className="bg-black text-white text-[13px] pl-4 pr-4 rounded-r">{props.buttonChildren}</button>
+      </div>
     </form>
   )
 }
