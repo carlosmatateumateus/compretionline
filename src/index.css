@@ -115,12 +115,12 @@ body::-webkit-scrollbar {
   width: 6px;   
 }
 
-::-webkit-scrollbar-track {
-  background: rgba(141, 141, 141, 0.288);    
+*::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.151);    
 }
 
-::-webkit-scrollbar-thumb {
-  background-color: #24242E;  
+*::-webkit-scrollbar-thumb {
+  background-color: #000000;  
   border-radius: 20px;       
 }
 

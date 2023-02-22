@@ -10,7 +10,7 @@ interface ProductTypes {
 
 export default function ProductCard(props: ProductTypes) {
   return (
-    <article className="w-[200px] flex flex-col justify-between gap-2 flex-shrink-0 cursor-pointer"> 
+    <article className="w-[200px] flex flex-col justify-between gap-2 flex-shrink-0 select-none"> 
       <div 
         style={{backgroundImage: `url(${String(props?.imgSrc)})`, backgroundSize: 'cover'}} 
         className="h-[235px] w-[100%] card-bg flex justify-end rounded-[0.5rem] bg-no-repeat bg-center skeleton"
@@ -20,7 +20,7 @@ export default function ProductCard(props: ProductTypes) {
         <h4 className="font-medium text-sm text-[#24242E] select-none">${ Number(props?.price) }</h4>
       </div>
 
-      <span className="text-[#474747] flex gap-2 items-center mb-2 text-[14px]">
+      <span className="text-[#474747] flex gap-2 items-center mb-2 text-[14px] select-none">
         <MapPin />
         { props?.location?.slice(0, 12) }...
       </span>

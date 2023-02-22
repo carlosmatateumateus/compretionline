@@ -8,7 +8,7 @@ import "swiper/css/scrollbar";
 
 const sliders = [
   {
-    imgSrc:"https://images.unsplash.com/photo-1611654302046-49b1cff819c9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1570&q=80",
+    imgSrc:"https://images.unsplash.com/photo-1588200908342-23b585c03e26?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
     title: `Encontre os productos da apple
     ao melhor preço.`,
     description: "Encontre iphones, apple watchs, macbooks, airpods tudo isso e muito mais em um único lugar."
