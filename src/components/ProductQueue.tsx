@@ -17,59 +17,51 @@ interface ProductQueueProps {
   products: Array<ProductTypes>
 }
 
-const productDefault = [{}, {}, {}, {}, {}, {}, {}, {}]
+const PRODUCT_DEFAULT = [{}, {}, {}, {}, {}, {}, {}, {}]
 
 export default function ProductQueue ({ title, products }: ProductQueueProps) {
   const queueRef = useRef<HTMLDivElement>(null);
 
-  function handleScrollRight() {
+  function handleScrollRight(amout: number) {
     if (queueRef.current) {
-      queueRef.current.scrollLeft += 50; // 50 é um exemplo, pode ser qualquer valor que você queira
+      queueRef.current.scrollLeft += amout; 
     }
   }
 
-  function handleScrollLeft() {
+  function handleScrollLeft(amout: number) {
     if (queueRef.current) {
-      queueRef.current.scrollLeft -= 50; // 50 é um exemplo, pode ser qualquer valor que você queira
+      queueRef.current.scrollLeft -= amout; 
     }
   }
 
-  function ProductsMap() {
-    return (
-      <>
-        {
-          products.length > 0?
-          (
-            products?.map((product, index) => {
-              return (
-                <ProductCard
-                  key={index}
-                  title={product.title}
-                  price={product.price}
-                  location={product.location}
-                  imgSrc={product.photo}
-                  id={product.id}
-                />
-              )
-            })
-          ):
-          (
-            productDefault?.map((product, index) => {
-              return (
-                <ProductCard
-                  key={index}
-                  title={"???"}
-                  price={0.00}
-                  location={"???"}
-                  imgSrc={undefined}
-                  id={undefined}
-                />
-              )
-            })
-          )
-        }
-      </>
-    )
+  function renderDefaultProducts() {
+    return PRODUCT_DEFAULT.map(() => (
+      <ProductCard
+        key={Math.random()}
+        title="???"
+        price={0.00}
+        location="???"
+        imgSrc={undefined}
+        id={undefined}
+      />
+    ));
+  }
+
+  function renderProducts() {
+    if (products.length === 0) {
+      return renderDefaultProducts();
+    }
+
+    return products.map((product) => (
+      <ProductCard
+        key={product.id}
+        title={product.title}
+        price={product.price}
+        location={product.location}
+        imgSrc={product.photo}
+        id={product.id}
+      />
+    ));
   }
   
   return (
@@ -81,13 +73,13 @@ export default function ProductQueue ({ title, products }: ProductQueueProps) {
             size="25" 
             weight="fill" 
             className="cursor-pointer text-black active:text-[#2b2b2b]"
-            onClick={() => handleScrollLeft()}
+            onClick={() => handleScrollLeft(50)}
           />
           <ArrowCircleRight 
             size="25" 
             weight="fill"  
             className="cursor-pointer text-black active:text-[#292929]"
-            onClick={() => handleScrollRight()}
+            onClick={() => handleScrollRight(50)}
           />
         </div>
       </div>
@@ -95,7 +87,7 @@ export default function ProductQueue ({ title, products }: ProductQueueProps) {
         className="flex gap-[10px] py-10 overflow-x-scroll"
         ref={queueRef}
         >
-        <ProductsMap />
+        {renderProducts()}
       </article>
     </section>
   )

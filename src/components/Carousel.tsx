@@ -1,30 +1,16 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from "swiper";
+import { SLIDERS } from "../lib/carouselData";
 
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import "swiper/css/scrollbar";
-
-const sliders = [
-  {
-    imgSrc:"https://images.unsplash.com/photo-1588200908342-23b585c03e26?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
-    title: `Encontre os productos da apple
-    ao melhor preço.`,
-    description: "Encontre iphones, apple watchs, macbooks, airpods tudo isso e muito mais em um único lugar."
-  },
-  {
-    imgSrc:"https://images.unsplash.com/photo-1603481546579-65d935ba9cdd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
-    title: `Já está mais do que na hora de teres aquele canto só teu.`,
-    description: "Já está na hora de comprar aquele computador."
-  },
-]
 
 export default function Carousel() {
   return (
     <div>
       <Swiper
-        modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
+        modules={[Navigation, Pagination, A11y, Autoplay]}
         spaceBetween={50}
         slidesPerView={1}
         navigation={true}
@@ -38,7 +24,7 @@ export default function Carousel() {
         className="h-[424px] on-center rounded-md mt-[35px]"
       >
         {
-          sliders.map((slider, index) => {
+          SLIDERS.map((slider, index) => {
             return (
               <SwiperSlide key={index} style={{backgroundImage: `url(${slider.imgSrc})`}} className="h-[100%] w-[100%] bg-cover bg-no-repeat">
                 <article className="h-[100%] w-[95%] ml-auto mr-auto flex items-end justify-between max-md:flex-col max-md:justify-end max-md:items-center max-md:text-center">
