@@ -1,19 +1,19 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import Home from "./pages/Home";
-import ProductPage from "./pages/ProductPage";
-import Searching from "./pages/Searching";
-import NewProduct from "./pages/NewProduct";
-import NotFoundError from "./pages/NotFoundError";
+import Product from "./pages/Product";
+import ProductResearch from "./pages/ProductResearch";
+import ProductEditor from "./pages/ProductEditor";
+import NotFound from "./pages/NotFound";
 import { AuthContextProvider } from "./contexts/AuthContext";
 
 const routes = [
   { path: "/", element: <Home /> },
-  { path: "/product/:productId", element: <ProductPage /> },
-  { path: "/product/new", element: <NewProduct /> },
-  { path: "/product/my", element: <Searching /> },
-  { path: "/product/edit/:productId", element: <NewProduct /> },
-  { path: "/search/:title/:categoryParam?", element: <Searching /> },
-  { path: "*", element: <NotFoundError /> }
+  { path: "/product/:productId", element: <Product /> },
+  { path: "/product/new", element: <ProductEditor /> },
+  { path: "/product/my", element: <ProductResearch /> },
+  { path: "/product/edit/:productId", element: <ProductEditor /> },
+  { path: "/search/:title/:categoryParam?", element: <ProductResearch /> },
+  { path: "*", element: <NotFound /> }
 ];
 
 const router = createBrowserRouter(routes);

@@ -2,7 +2,7 @@ import { FileImage, Info, X } from "phosphor-react"
 import clsx from "clsx"
 import { getStorage, ref, deleteObject } from "firebase/storage";
 
-interface ImageProps {
+interface ImageUploaderProps {
   id?: string,
   image: string | any,
   imageError: string,
@@ -11,7 +11,7 @@ interface ImageProps {
   setImageChaged: Function
 }
 
-export default function Image(props:ImageProps) {
+export default function ImageUploader(props:ImageUploaderProps) {
   const storage = getStorage();
 
   function handleUploadImage(e: any) {

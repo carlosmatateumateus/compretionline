@@ -16,7 +16,7 @@ interface ProductTypes {
   userId: string | undefined,
 }
 
-const ProductPage = () => {
+export default function Product() {
   const { productId } = useParams() as any
 
   const [product, setProduct] = useState({} as ProductTypes)
@@ -68,5 +68,3 @@ const ProductPage = () => {
     </section>
   )
 }
-
-export default ProductPage;

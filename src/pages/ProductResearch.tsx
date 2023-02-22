@@ -27,7 +27,7 @@ const categoryOptions = [
   { value: "musical", label: "musical" }
 ]
 
-export default function Searching() {
+export default function ProductResearch() {
   const { user } = useAuth()
 
   const { title, categoryParam } = useParams()

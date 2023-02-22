@@ -10,7 +10,7 @@ import { useParams } from "react-router-dom"
 
 import validateForm from "../utils/validateForm"
 
-import Image from "../components/Image"
+import ImageUploader from "../components/ImageUploader"
 import PostAction from "../components/PostActions"
 
 const categoryOptions = [
@@ -20,7 +20,7 @@ const categoryOptions = [
   { value: "musical", label: "musical" }
 ]
 
-export default function NewProduct() {
+export default function ProductEditor() {
 
   let { productId } = useParams()
 
@@ -120,7 +120,7 @@ export default function NewProduct() {
 
           <main className="flex gap-6 mt-[17px] flex-wrap">
             <div className="flex flex-col gap-5">
-              <Image
+              <ImageUploader
                 id="product-image"
                 image={image}
                 imageChanged={imageChanged}

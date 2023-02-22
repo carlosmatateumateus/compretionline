@@ -1,7 +1,7 @@
 import Header from "../components/Header"
 import Button from "../components/Button"
 
-const NotFoundError = () => {
+export default function NotFound() {
   return (
     <section>
       <Header />
@@ -16,5 +16,3 @@ const NotFoundError = () => {
     </section>
   )
 }
-
-export default NotFoundError
