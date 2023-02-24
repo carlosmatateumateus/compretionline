@@ -1,6 +1,6 @@
 # Compretionline
 
-Compretionline é um ecommerce de tecnologia minimalista. O objectivo deste projecto é criar um ecommerce de tecnologia fácil de navegar, seguro e de alta qualidade.
+Compretionline é um ecommerce de tecnologia minimalista. O objetivo desse projeto é oferecer aos clientes uma plataforma de compras online fácil de navegar, segura e de alta qualidade, com foco na simplicidade e eficiência.
 
 ![screen1](./screens/Captura%20de%20ecrã%20de%202023-02-22%2017-59-16.png)
 
