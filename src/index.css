@@ -2,8 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-*::selection{
+::selection {
   background-color: black;
+  color: white;
 }
 
 * {

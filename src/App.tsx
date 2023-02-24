@@ -19,12 +19,10 @@ const routes = [
 
 const router = createBrowserRouter(routes);
 
-function App() {
+export default function App() {
   return (
     <AuthContextProvider>
       <RouterProvider router={router}/>
     </AuthContextProvider>
   );
 }
-
-export default App;
