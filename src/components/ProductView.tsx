@@ -3,7 +3,9 @@ import useAuth from "../hooks/useAuth";
 import Button from "./Button";
 
 import { MapPin, Envelope, Timer, Pencil, Trash } from "phosphor-react";
+
 import { api } from "../lib/axios";
+import { useNavigate, Link } from "react-router-dom";
 
 interface ProductTypes {
   id: string | undefined,
@@ -13,7 +15,9 @@ interface ProductTypes {
   location: string | undefined,
   createdAt: string | undefined,
   userId: string | undefined, 
-  photo: string | undefined
+  photo: string | undefined,
+
+  setIsDeleted: Function
 }
 
 type User = {
@@ -26,6 +30,7 @@ const ProductView = (props: ProductTypes) => {
   const { user } = useAuth()
 
   const [ userEmail, setUserEmail ] = useState({} as User)
+  const navigate = useNavigate()
 
   useEffect(() => {
     async function callUser() {
@@ -42,9 +47,9 @@ const ProductView = (props: ProductTypes) => {
   }, [])
 
   async function deleteProduct() {
-    await api.delete(`/product/${props.id}`)
+    props.setIsDeleted(true)
 
-    window.document.location = '/'
+    await api.delete(`/product/${props.id}`)
   }
 
   return (
@@ -89,17 +94,19 @@ const ProductView = (props: ProductTypes) => {
                 ):
                 (
                   <div className="flex gap-4 items-center">
-                    <a href={`/product/edit/${props.id}`}>
+                    <Link to={`/product/edit/${props.id}`}>
                       <Button>
                         <Pencil size="20"/>
                         Editar producto
                       </Button>
-                    </a>
-                    <button className="border w-[54px] h-[56px] flex items-center justify-center rounded">
+                    </Link>
+                    <button 
+                      className="border w-[54px] h-[56px] flex items-center justify-center rounded"
+                      onClick={() => deleteProduct()}
+                    >
                       <Trash 
                         size="20" 
                         weight="duotone" 
-                        onClick={() => deleteProduct()}
                       />
                     </button>
                   </div>

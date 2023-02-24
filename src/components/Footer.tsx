@@ -5,8 +5,8 @@ export default function Footer() {
         <img src="/logo.svg" alt="Compretionline logo"/>
       </a>
       <nav className="flex gap-10 text-sm text-[#1E2833] flex-wrap justify-center">
-        <a href="/search/computador">Computadores</a>
-        <a href="/search/celular">Smartphones</a>
+        <a href="/search/samsung/smartphones">Samsung</a>
+        <a href="/search/iphone/smartphones">IPhone</a>
         <a href="/search/console">Consoles</a>
         <a href="/search/teclado">Teclados</a>
       </nav>

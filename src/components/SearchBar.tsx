@@ -1,5 +1,6 @@
 import { MagnifyingGlass } from "phosphor-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface SearchBarProps {
   className: string,
@@ -10,6 +11,7 @@ interface SearchBarProps {
 
 export default function SearchBar(props: SearchBarProps) {
   const [title, setTitle] = useState() as any
+  const navigate = useNavigate()
   
   async function HandleSubmit(e:any) {
     e.preventDefault()
@@ -19,7 +21,7 @@ export default function SearchBar(props: SearchBarProps) {
     }
     
     if (title != undefined) {
-      window.document.location = `/search/${title}`
+      navigate(`/search/${title}/`)
     }
   }
 

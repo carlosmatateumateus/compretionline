@@ -53,26 +53,26 @@ function uploadImage(image: any) {
 }
 
 export default async function createProduct(props: createProductProps) {
-  if (props.imageChanged) {
-    props.image = await uploadImage(props.image)
-  } else {
-    props.image = props.image
-  }
-  
-  if (window.location.pathname !== "/product/new") {
+  return new Promise(async (resolve, reject) => {
+    if (props.imageChanged) {
+      props.image = await uploadImage(props.image)
+    } else {
+      props.image = props.image
+    }
+    
+    if (window.location.pathname !== "/product/new") {
 
-    await api.patch(`/product/${props.productId}`, {
-      title: props.name,
-      price: props.price,
-      location: props.location,
-      category: props.category,
-      description: props.description,
-      photo: props.image,
-    })
+      await api.patch(`/product/${props.productId}`, {
+        title: props.name,
+        price: props.price,
+        location: props.location,
+        category: props.category,
+        description: props.description,
+        photo: props.image,
+      })
 
-  } else {
-    console.table(
-      {
+    } else {
+      const product = await api.post('/product', {
         title: props.name,
         price: props.price,
         location: props.location,
@@ -80,20 +80,11 @@ export default async function createProduct(props: createProductProps) {
         description: props.description,
         photo: props.image,
         userId: props.user?.uid,
-      }
-    )
-    const product = await api.post('/product', {
-      title: props.name,
-      price: props.price,
-      location: props.location,
-      category: props.category,
-      description: props.description,
-      photo: props.image,
-      userId: props.user?.uid,
-    })
-    
-    props.productId = product.data.id
-  }
+      })
+      
+      props.productId = product.data.id
+    }
 
-  window.document.location = `/product/${props.productId}`
+    resolve(`/product/${props.productId}`)
+  })
 }

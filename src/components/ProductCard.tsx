@@ -1,4 +1,5 @@
 import { MapPin } from "phosphor-react"
+import { Link } from "react-router-dom"
 
 interface ProductTypes {
   id: string | undefined,
@@ -28,11 +29,11 @@ export default function ProductCard(props: ProductTypes) {
       {
         props.id?
         (
-          <a href={`/product/${props.id}`}>
+          <Link to={`/product/${props.id}`}>
             <button className="h-[50px] w-[200px] border border-black text-[15px] rounded select-none active:bg-black active:text-white">
               Informações
             </button>
-          </a>
+          </Link>
         ):
         (
           <button className="h-[50px] w-[200px] border border-black text-[15px] rounded select-none active:bg-black active:text-white">
@@ -40,7 +41,6 @@ export default function ProductCard(props: ProductTypes) {
           </button>
         )
       }
-
     </article>
   )
 }

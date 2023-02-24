@@ -13,7 +13,7 @@ type User = {
 type AuthContextType = {
   user: User | undefined,
   signInWithGoogle: () => Promise<void>,
-  GoogleSignOut: () => Promise<void>,
+  GoogleSignOut: () => Promise<unknown>,
 }
 
 type AuthContextProviderProps = {
@@ -54,20 +54,23 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
 
     userVerify({ uid, photoURL, email })
     setUser({ uid, photoURL, email })
-    window.document.location = "/"
   })
   .catch(error => {
     throw new Error(error)
   })
  }
 
- async function GoogleSignOut() {  
-  await signOut(auth)
-  .catch((error) => {
-    throw new Error(error)
-  });
-
-  window.document.location = "/"
+function GoogleSignOut() {  
+  return new Promise(async (resolve, reject) => {
+    await signOut(auth)
+    .then(() => {
+      setUser(undefined)
+      resolve('sucefull')
+    })
+    .catch((error) => {
+      reject(error)
+    });
+  }) 
  }
 
  return(

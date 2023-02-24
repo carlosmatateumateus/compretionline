@@ -6,7 +6,7 @@ import Field from "../components/Field"
 
 import { api, locationApi } from "../lib/axios"
 import useAuth from "../hooks/useAuth"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 
 import validateForm from "../utils/validateForm"
 
@@ -23,6 +23,7 @@ const categoryOptions = [
 export default function ProductEditor() {
 
   let { productId } = useParams()
+  const navigate = useNavigate()
 
   const [name, setName] = useState() as any
   const [nameError, setNameError] = useState() as any
@@ -45,6 +46,7 @@ export default function ProductEditor() {
   const [imageChanged, setImageChaged] = useState(false)
 
   const [saving, setSaving] = useState(false)
+  const [redirect, setRedirect] = useState(false)
 
   const { user } = useAuth()
 
@@ -54,7 +56,7 @@ export default function ProductEditor() {
         const value = await api.get(`/product/${productId}`)
 
         if (user && value.data.userId !== user?.uid || value.data === null) {
-          window.document.location = "/error"
+          navigate("/error")
         } else {        
           setName(value.data.title)
           setPrice(value.data.price)
@@ -102,6 +104,8 @@ export default function ProductEditor() {
       productId,
       setSaving,
       user
+    }).then((response) => {
+      navigate(`${response}`)
     })
   }
 

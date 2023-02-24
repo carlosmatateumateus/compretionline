@@ -1,4 +1,4 @@
-import { LinkedinLogo, MagnifyingGlass } from "phosphor-react";
+import { MagnifyingGlass } from "phosphor-react";
 import SearchBar from "./SearchBar";
 import useAuth from "../hooks/useAuth";
 import Avatar from "./Avatar";
@@ -7,12 +7,13 @@ import clsx from "clsx";
 import { useState } from "react";
 
 import { GoogleLogo } from "phosphor-react";
+import { Link } from "react-router-dom";
 
 interface HeaderProps {
   title?: string,
 }
 
-export default function Header(props:HeaderProps) {
+export default function Header(props:HeaderProps) {  
   const [searchMobile, setSearchMobile] = useState(false)
   
   const { user, signInWithGoogle } = useAuth()
@@ -25,14 +26,14 @@ export default function Header(props:HeaderProps) {
           "flex gap-4": !searchMobile,
         })}
         >
-        <a href="/">
+        <Link to="/">
           <img 
             src="/logo.svg" 
             alt="compretionline logo" 
             className="max-[300px]:hidden select-none" 
             draggable="false" 
           />
-        </a>
+        </Link>
           <SearchBar 
             value={props.title} 
             buttonChildren="search" 

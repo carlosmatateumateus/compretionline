@@ -1,9 +1,11 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { api, timeApi } from "../lib/axios";
+
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import ProductView from "../components/ProductView";
-import { useEffect, useState } from "react";
-import { api, timeApi } from "../lib/axios";
+
 import timeAgo from "../utils/timeAgo";
 
 interface ProductTypes {
@@ -18,9 +20,13 @@ interface ProductTypes {
 
 export default function Product() {
   const { productId } = useParams() as any
+  const navigate = useNavigate()
 
   const [product, setProduct] = useState({} as ProductTypes)
   const [time, setTime] = useState("???") 
+
+  const [isDeleted, setIsDeleted] = useState(false)
+  
 
   useEffect(() => {
     setProduct({
@@ -36,8 +42,12 @@ export default function Product() {
     async function callApi() {
       const value = await api.get(`/product/${productId}`)
 
-      if (value.data === null) {
-        window.document.location = '/error'
+      if (isDeleted) {
+        navigate('/')
+      }
+
+      if (value.data === null && isDeleted === false) {
+        navigate('/404')
       } else {
         const dataValue = await timeApi.get('timezone/Africa/Luanda')
 
@@ -49,7 +59,7 @@ export default function Product() {
     return () => {
       callApi()
     }
-  }, [])
+  }, [isDeleted])
 
   return (
     <section className="on-center">
@@ -62,6 +72,7 @@ export default function Product() {
         createdAt={time}
         userId={product.userId}
         photo={product.photo}
+        setIsDeleted={setIsDeleted}
         id={productId}
       />
       <Footer />

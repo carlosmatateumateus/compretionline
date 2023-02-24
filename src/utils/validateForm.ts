@@ -162,65 +162,69 @@ function imageValidator(props: fieldValidator) {
 }
 
 export default function validateForm(props:validateFormProps) {
-  const error = {
-    name: '',
-    price: '',
-    location: '',
-    category: '',
-    description: '',
-    image: ''
-  }
+  return new Promise((resolve, reject) => {
+    const error = {
+      name: '',
+      price: '',
+      location: '',
+      category: '',
+      description: '',
+      image: ''
+    }
 
-  error.category = categoryValidator({
-    field: props.category,
-    callBack: props.setCategoryError
-  })
-
-  error.name = nameValidator({
-    field: props.name,
-    callBack: props.setNameError
-  })
-
-  error.price = priceValidator({
-    field: props.price,
-    callBack: props.setPriceError
-  })
-
-  error.location = locationValidator({
-    field: props.location,
-    callBack: props.setLocationError
-  })
-
-  error.description = descriptionValidator({
-    field: props.description,
-    callBack: props.setDescriptionError
-  })
-
-  error.image = imageValidator({
-    field: props.image,
-    callBack: props.setImageError,
-  })
-
-  if (
-    error.name === '' && 
-    error.price === '' && 
-    error.location === '' &&
-    error.category === '' &&
-    error.description === '' &&
-    error.image === ''
-  ) {
-    props.setSaving(true)
-
-    createProduct({
-      name: props.name,
-      price: props.price,
-      description: props.description,
-      location: props.location,
-      category: props.category,
-      image: props.image,
-      imageChanged: props.imageChanged,
-      user: props.user,
-      productId: props.productId
+    error.category = categoryValidator({
+      field: props.category,
+      callBack: props.setCategoryError
     })
-  }
+
+    error.name = nameValidator({
+      field: props.name,
+      callBack: props.setNameError
+    })
+
+    error.price = priceValidator({
+      field: props.price,
+      callBack: props.setPriceError
+    })
+
+    error.location = locationValidator({
+      field: props.location,
+      callBack: props.setLocationError
+    })
+
+    error.description = descriptionValidator({
+      field: props.description,
+      callBack: props.setDescriptionError
+    })
+
+    error.image = imageValidator({
+      field: props.image,
+      callBack: props.setImageError,
+    })
+
+    if (
+      error.name === '' && 
+      error.price === '' && 
+      error.location === '' &&
+      error.category === '' &&
+      error.description === '' &&
+      error.image === ''
+    ) {
+      props.setSaving(true)
+
+      createProduct({
+        name: props.name,
+        price: props.price,
+        description: props.description,
+        location: props.location,
+        category: props.category,
+        image: props.image,
+        imageChanged: props.imageChanged,
+        user: props.user,
+        productId: props.productId
+      }).then((response) => {
+        resolve(response)
+      })
+    }
+  })
 }

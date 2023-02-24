@@ -137,15 +137,11 @@ body::-webkit-scrollbar {
   display: none;
 }
 
-.swiper-scrollbar-drag + .swiper-scrollbar-drag {
+.swiper-scrollbar-drag + .swiper-scrollbar-drag, .btn-ring,  .load-data {
   display: block;
 }
 
-.btn-ring {
-  display: block;
-}
-
-.btn-ring:after {
+.btn-ring::after, .load-data::after {
   content: "";
   display: block;
   width: 25px;
@@ -155,6 +151,14 @@ body::-webkit-scrollbar {
   border: 3px solid #fff;
   border-color: #fff transparent #fff;
   animation: ring 1.2s linear infinite;
+}
+
+.load-data:after {
+  width: 15px;
+  height: 15px;
+  border: 2px solid #fff;
+  border-color: #fff transparent #fff;
+  margin: 0;
 }
 
 @keyframes ring {
