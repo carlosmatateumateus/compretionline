@@ -5,14 +5,15 @@ import ProductResearch from "./pages/ProductResearch";
 import ProductEditor from "./pages/ProductEditor";
 import NotFound from "./pages/NotFound";
 import { AuthContextProvider } from "./contexts/AuthContext";
+import MyProducts from "./pages/MyProducts";
 
 const routes = [
   { path: "/", element: <Home /> },
   { path: "/product/:productId", element: <Product /> },
   { path: "/product/new", element: <ProductEditor /> },
-  { path: "/product/my", element: <ProductResearch /> },
+  { path: "/product/my/:category?", element: <MyProducts /> },
   { path: "/product/edit/:productId", element: <ProductEditor /> },
-  { path: "/search/:title/:categoryParam?", element: <ProductResearch /> },
+  { path: "/search/:title/:category?", element: <ProductResearch /> },
   { path: "*", element: <NotFound /> }
 ];
 

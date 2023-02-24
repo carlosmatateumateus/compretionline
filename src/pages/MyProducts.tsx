@@ -27,10 +27,11 @@ const categoryOptions = [
   { value: "musical", label: "musical" }
 ]
 
-export default function ProductResearch() {
+export default function MyProducts() {
+  const { user } = useAuth()
   const navigate = useNavigate()
 
-  let { title, category } = useParams()
+  let { category } = useParams()
 
   const [results, setResults] = useState(0)
 
@@ -40,50 +41,49 @@ export default function ProductResearch() {
   const [page, setPage] = useState(1)
 
   const [isLoading, setIsLoading] = useState(false);
-  const [oldTitle, setOldTitle] = useState<string | undefined>()
   const [oldCategory, setOldCategory] = useState<string | undefined>()
   
   async function fetchData() {
     let response: any;
 
     setIsLoading(true)
-    setOldTitle(title)
     setOldCategory(category)
 
     if (category) {
       setProductCategory(category)
       setData([])
-      response = await api.get(`/product/search/${title}/${page}/${category}`)
+      response = await api.get(`/product/my/${user?.uid}/${page}/${category}`)
     } else {
-      response = await api.get(`/product/search/${title}/${page}`)
+      response = await api.get(`/product/my/${user?.uid}/${page}`)
     }
 
     const newData = response.data.products;
 
-    if (title !== oldTitle || category !== oldCategory) {
+    if (category !== oldCategory) {
       setData(newData);
     } else {
       setData([...data, ...newData]);
     }
 
     setResults(response.data.results)
+    console.table(data)
 
     setIsLoading(false)
   }
 
-  useEffect(() => { fetchData() }, [page, title, category])
+  useEffect(() => { fetchData() }, [page, category, user])
 
   function searchWithCategory() {
     if (productCategory) {
-      navigate(`/search/${title}/${productCategory}`)
+      navigate(`/product/my/${productCategory}`)
     }
   }
 
   function reaserchTitle() {
     if (results) {
-      return <>{ results } resultados encontrados para {title}</>
+      return <>{ results } productos encontrados do {user?.email}</>
     } else {
-      return <>??? resultados encontrados para ???</>
+      return <>??? productos encontrados do ???</>
     }
   }
 
@@ -111,7 +111,7 @@ export default function ProductResearch() {
 
   return (
     <section>
-      <Header title={title}/>
+      <Header title={""}/>
       <div className="flex items-center justify-between flex-wrap ">
         <p className="text-xl mt-14 mb-14 ml-[18px]">
           { reaserchTitle() }
@@ -119,11 +119,11 @@ export default function ProductResearch() {
         <div className="flex items-center gap-1 max-md:justify-center max-md:w-[100%] flex-wrap">
           <span 
             className={clsx('text-[14px] p-1 select-none', {
-              "text-gray-300 cursor-default": !productCategory,
-              "cursor-pointer": productCategory
+              "text-gray-300 cursor-default": !category,
+              "cursor-pointer": category
             })}
             onClick={() => {
-              navigate(`/search/${title}`)
+              navigate(`/product/my`)
               setProductCategory(undefined)
             }}
           >

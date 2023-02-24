@@ -20,7 +20,7 @@ export default function SearchBar(props: SearchBarProps) {
       props.setValue(false)
     }
     
-    if (title != undefined) {
+    if (title !== undefined) {
       navigate(`/search/${title}/`)
     }
   }
