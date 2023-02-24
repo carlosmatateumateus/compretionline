@@ -73,13 +73,13 @@ export default function ProductQueue ({ title, products }: ProductQueueProps) {
             size="25" 
             weight="fill" 
             className="cursor-pointer text-black active:text-[#2b2b2b]"
-            onClick={() => handleScrollLeft(50)}
+            onClick={() => handleScrollLeft(200)}
           />
           <ArrowCircleRight 
             size="25" 
             weight="fill"  
             className="cursor-pointer text-black active:text-[#292929]"
-            onClick={() => handleScrollRight(50)}
+            onClick={() => handleScrollRight(200)}
           />
         </div>
       </div>

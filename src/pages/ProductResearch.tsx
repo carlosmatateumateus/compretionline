@@ -1,5 +1,4 @@
-import React from 'react';
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Header from "../components/Header"
 import ProductCard from "../components/ProductCard"
 import Footer from "../components/Footer"
@@ -30,26 +29,33 @@ const categoryOptions = [
 
 export default function ProductResearch() {
   const { user } = useAuth()
+  const navigate = useNavigate()
 
-  const { title, categoryParam } = useParams()
+  let { title, categoryParam } = useParams()
 
   const [results, setResults] = useState(0)
 
   const [data, setData] = useState([] as ProductTypes[])
+  const [Mydata, setMyData] = useState([] as ProductTypes[])
 
   const [category, setCategory] = useState() as any
   const [page, setPage] = useState(1)
 
   const [isLoading, setIsLoading] = useState(false);
-
+  const [oldTitle, setOldTitle] = useState<string | undefined>()
+  const [oldCategory, setOldCategory] = useState<string | undefined>()
+  
   async function fetchData() {
     if (window.document.location.pathname !== "/product/my/") {
       let response: any;
 
       setIsLoading(true)
+      setOldTitle(title)
+      setOldCategory(category)
 
       if (categoryParam) {
         setCategory(categoryParam)
+        setData([])
         response = await api.get(`/product/search/${title}/${page}/${categoryParam}`)
       } else {
         response = await api.get(`/product/search/${title}/${page}`)
@@ -57,37 +63,37 @@ export default function ProductResearch() {
 
       const newData = response.data.products;
 
-      setData([...data, ...newData]);
-
-      console.log(data.length)
+      if (title !== oldTitle || categoryParam !== oldCategory) {
+        setData(newData);
+      } else {
+        setData([...data, ...newData]);
+      }
   
       setResults(response.data.results)
-
-      console.log(results)
 
       setIsLoading(false)
     }
     
     if (window.document.location.pathname === "/product/my" && user) {
-      console.log('OSKEY')
+      setData([])
       setIsLoading(true)
 
       const response = await api.get(`/product/my/${user?.uid}`)
 
       const newData = response.data.products;
 
-      setData([...data, ...newData]);
+      setMyData([...Mydata, ...newData]);
 
       setResults(response.data.results)
       setIsLoading(false)
     }
   }
 
-  useEffect(() => { fetchData() }, [user?.uid, page])
+  useEffect(() => { fetchData() }, [page, title, categoryParam])
 
   function searchWithCategory() {
     if (category) {
-      window.document.location = `/search/${title}/${category}`
+      navigate(`/search/${title}/${category}`)
     }
   }
 
@@ -139,7 +145,15 @@ export default function ProductResearch() {
 
   return (
     <section>
-      <Header title={title}/>
+      {
+        window.document.location.pathname === "/product/my" && user?
+        (
+          <Header title={""}/>
+        ):
+        (
+          <Header title={title}/>
+        )
+      }
       <div className="flex items-center justify-between flex-wrap ">
         <p className="text-xl mt-14 mb-14 ml-[18px]">
           { reaserchTitle() }
@@ -176,7 +190,7 @@ export default function ProductResearch() {
         { renderProducts() }
       </main>
       {
-        data.length !==results?
+        data.length !== results?
           <LoadMoreButton 
             page={page}
             setPage={setPage}
