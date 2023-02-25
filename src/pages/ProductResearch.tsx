@@ -6,9 +6,8 @@ import Select from "../components/Select";
 
 import { useEffect, useState } from "react";
 import { api } from "../lib/axios";
-import useAuth from "../hooks/useAuth";
 import clsx from "clsx";
-import Error404 from "../components/Error404";
+import Error from "../components/Error";
 import LoadMoreButton from "../components/LoadMoreButton"
 
 interface ProductTypes {
@@ -90,9 +89,11 @@ export default function ProductResearch() {
   function renderProducts() {
     if (results === 0) {
       return (
-        <Error404 
+        <Error
           title="Productos não encontrados"
           description="Os tipos productos que você está procurando ou tentando procurar não estão neste marketplace!"
+          children="Voltar para a homepage!"
+          redirectTo="/"
         />
       )
     } else {

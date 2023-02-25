@@ -67,7 +67,7 @@ export default function ProductQueue ({ title, products }: ProductQueueProps) {
   return (
     <section className="mt-[50px] on-center productqueue">
       <div className="on-center flex items-center justify-between flex-wrap">
-        <h2 className="text-2xl font-medium mb-1">{ title } </h2>
+        <h2 className="text-2xl font-medium mb-1 select-none">{ title } </h2>
         <div className="flex">
           <ArrowCircleLeft 
             size="25" 

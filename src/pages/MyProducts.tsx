@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { api } from "../lib/axios";
 import useAuth from "../hooks/useAuth";
 import clsx from "clsx";
-import Error404 from "../components/Error404";
+import Error from "../components/Error";
 import LoadMoreButton from "../components/LoadMoreButton"
 
 interface ProductTypes {
@@ -80,7 +80,7 @@ export default function MyProducts() {
   }
 
   function reaserchTitle() {
-    if (results) {
+    if (user?.email) {
       return <>{ results } productos encontrados do {user?.email}</>
     } else {
       return <>??? productos encontrados do ???</>
@@ -90,9 +90,11 @@ export default function MyProducts() {
   function renderProducts() {
     if (results === 0) {
       return (
-        <Error404 
-          title="Productos não encontrados"
-          description="Os tipos productos que você está procurando ou tentando procurar não estão neste marketplace!"
+        <Error 
+          title="Não a nada para ver aqui"
+          description="Nesta seção você poderá ver todos os produtos que estiver vendendo, facilitando o gerenciamento de suas vendas."
+          children="Criar productos"
+          redirectTo="/product/new"
         />
       )
     } else {

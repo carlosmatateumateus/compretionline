@@ -1,6 +1,7 @@
 import { FileImage, Info, X } from "phosphor-react"
 import clsx from "clsx"
-import { getStorage, ref, deleteObject } from "firebase/storage";
+import { getStorage } from "firebase/storage";
+import deleteImage from "../utils/deleteImage";
 
 interface ImageUploaderProps {
   id?: string,
@@ -18,17 +19,6 @@ export default function ImageUploader(props:ImageUploaderProps) {
     props.setImage(e.target.files[0])
     
     props.setImageChaged(true)
-  }
-
-  function deleteImage(imageUrl: string) {
-    const desertRef = ref(storage, imageUrl);
-
-    deleteObject(desertRef).then(() => {
-      console.log('Image was deleted!')
-      props.setImage(undefined)
-    }).catch((error) => {
-      throw new Error(error)
-    });
   }
 
   return (
@@ -95,7 +85,12 @@ export default function ImageUploader(props:ImageUploaderProps) {
                     <p>{String(props.image).slice(0, 30)}</p>
                     <X 
                       className="cursor-pointer"
-                      onClick={() => deleteImage(props.image)}
+                      onClick={async () => {
+                        await deleteImage(props.image)
+                        .then(() => {
+                          props.setImage(undefined)
+                        })
+                      }}
                     />
                   </>
                 ):

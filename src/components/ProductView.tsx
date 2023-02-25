@@ -6,6 +6,7 @@ import { MapPin, Envelope, Timer, Pencil, Trash } from "phosphor-react";
 
 import { api } from "../lib/axios";
 import { useNavigate, Link } from "react-router-dom";
+import deleteImage from "../utils/deleteImage";
 
 interface ProductTypes {
   id: string | undefined,
@@ -50,6 +51,9 @@ const ProductView = (props: ProductTypes) => {
     props.setIsDeleted(true)
 
     await api.delete(`/product/${props.id}`)
+    .then(() => {
+      deleteImage(props.photo)
+    })
   }
 
   return (
