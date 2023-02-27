@@ -18,49 +18,55 @@ interface FieldProps {
 
 }
 
-export default function Field(props:FieldProps) {
+export default function Field(
+    { id, isTextArea, isSelect, 
+      label, placeHolder, inputValue, 
+      setValue, inputError, options
+    }:FieldProps
+  ) 
+  {
   return (
-    <div className="flex flex-col" id={props.id}>
+    <div className="flex flex-col" id={id}>
       <div className="max-md:w-[90vw] mb-[16px] w-[305px] flex justify-between">
-        <label>{props.label} *</label>
+        <label>{label} *</label>
         <aside 
           className={clsx("flex items-center gap-1 text-[#ff6961]", {
-            "hidden": props.inputError==="" || props.inputError===undefined,
-            "block": props.inputError!==""
+            "hidden": inputError==="" || inputError===undefined,
+            "block": inputError!==""
           })}
         > 
           <Info />
-          <span className="text-[14px]">{ props.inputError }</span>
+          <span className="text-[14px]">{ inputError }</span>
         </aside>
       </div>
       {
-         props.isSelect?
+         isSelect?
         (
           <Select
-            options={props.options}
-            placeHolder={props.placeHolder}
-            setValue={props.setValue}
-            value={props.inputValue}
+            options={options}
+            placeHolder={placeHolder}
+            setValue={setValue}
+            value={inputValue}
           />
         ):
         (
           <>
             {
-              !props.isTextArea?
+              !isTextArea?
               (
                 <input 
                   className="max-md:w-[100%] rounded border h-[56px] text-[14px] outline-none border-[#24242E] p-4 placeholder:text-[14px] placeholder:text-[#a5a5a5]"
-                  placeholder={props.placeHolder}
-                  onChange={(e) => { props.setValue(e.target.value) }}
-                  value={props.inputValue}
+                  placeholder={placeHolder}
+                  onChange={(e) => { setValue(e.target.value) }}
+                  value={inputValue}
                 />
               ):
               (
                 <textarea
                   className="max-md:w-[100%] resize-none p-4 w-[305px] h-[220px] outline-none rounded border text-[14px] border-[#24242E] placeholder:text-[14px] placeholder:text-[#a5a5a5]"
-                  placeholder={props.placeHolder}
-                  onChange={(e) => { props.setValue(e.target.value) }}
-                  value={props.inputValue}
+                  placeholder={placeHolder}
+                  onChange={(e) => { setValue(e.target.value) }}
+                  value={inputValue}
                 />
               )
             }

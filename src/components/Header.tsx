@@ -13,10 +13,10 @@ interface HeaderProps {
   title?: string,
 }
 
-export default function Header(props:HeaderProps) {  
+export default function Header({ title }:HeaderProps) {  
   const [searchMobile, setSearchMobile] = useState(false)
   
-  const { user, signInWithGoogle } = useAuth()
+  const { user, signIn } = useAuth()
 
   return (
     <header className="h-12 flex items-center justify-between on-center mt-2">
@@ -35,7 +35,7 @@ export default function Header(props:HeaderProps) {
           />
         </Link>
           <SearchBar 
-            value={props.title} 
+            value={title} 
             buttonChildren="search" 
             className="flex max-md:hidden w-[330px]" 
             setValue={() => {}}
@@ -48,7 +48,7 @@ export default function Header(props:HeaderProps) {
         })}
       >
         <SearchBar 
-          value={props.title} 
+          value={title} 
           buttonChildren="cancelar" 
           setValue={setSearchMobile}
           className={clsx("w-[95vw] ml-auto justify-center",{
@@ -78,14 +78,14 @@ export default function Header(props:HeaderProps) {
               <div>
                 <button
                   className="flex p-3 gap-3  bg-white  text-black border border-black rounded max-md:hidden active:bg-black active:text-white"
-                  onClick={() => signInWithGoogle()}
+                  onClick={() => signIn()}
                   >
                   <GoogleLogo size="20" weight="bold"/>
                   <span className="font-medium text-sm"> Iniciar sesão com o Google </span>
                 </button>
                 <button
                   className="hidden max-md:flex border-[0.1px] bg-black text-white h-[35px] w-[35px] items-center justify-center rounded-full active:bg-white active:text-black active:border-black"
-                  onClick={() => signInWithGoogle()}
+                  onClick={() => signIn()}
                   >
                   <GoogleLogo size="20" weight="bold"/>
                 </button>

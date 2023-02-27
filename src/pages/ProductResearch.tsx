@@ -61,6 +61,7 @@ export default function ProductResearch() {
 
     if (title !== oldTitle || category !== oldCategory) {
       setData(newData);
+      setPage(1)
     } else {
       setData([...data, ...newData]);
     }

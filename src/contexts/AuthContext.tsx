@@ -1,4 +1,4 @@
-import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
+import { GoogleAuthProvider, signInWithPopup, signOut as googleSignOut } from "firebase/auth";
 import { createContext, useState, ReactNode, useEffect } from "react";
 
 import { auth } from "../lib/firebase"
@@ -12,8 +12,8 @@ type User = {
 
 type AuthContextType = {
   user: User | undefined,
-  signInWithGoogle: () => Promise<void>,
-  GoogleSignOut: () => Promise<unknown>,
+  signIn: () => Promise<void>,
+  signOut: () => Promise<unknown>,
 }
 
 type AuthContextProviderProps = {
@@ -45,7 +45,7 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
     }
   }, [user?.uid])
 
- async function signInWithGoogle() {
+ async function signIn() {
   const provider = new GoogleAuthProvider();
   
   await signInWithPopup(auth, provider)
@@ -60,9 +60,9 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
   })
  }
 
-function GoogleSignOut() {  
+function signOut() {  
   return new Promise(async (resolve, reject) => {
-    await signOut(auth)
+    await googleSignOut(auth)
     .then(() => {
       setUser(undefined)
       resolve('sucefull')
@@ -74,7 +74,7 @@ function GoogleSignOut() {
  }
 
  return(
-  <AuthContext.Provider value={{ user, signInWithGoogle, GoogleSignOut }}>
+  <AuthContext.Provider value={{ user, signIn, signOut }}>
     {props.children}
   </AuthContext.Provider>
 );

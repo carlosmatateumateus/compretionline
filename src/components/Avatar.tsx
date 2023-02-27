@@ -5,7 +5,7 @@ import useAuth from '../hooks/useAuth';
 import { Link, useNavigate } from 'react-router-dom';
 
 export default function Avatar() {
-  const { user, GoogleSignOut } = useAuth()
+  const { user, signOut } = useAuth()
   const navigate = useNavigate()
   
   return (
@@ -42,7 +42,7 @@ export default function Avatar() {
           <div 
             className='flex items-center gap-3 cursor-pointer text-[15px]'
             onClick={() => {
-              GoogleSignOut().then(() => {
+              signOut().then(() => {
                 navigate('/')
               })
             }}

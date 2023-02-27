@@ -5,7 +5,7 @@ import Button from "./Button";
 import { MapPin, Envelope, Timer, Pencil, Trash } from "phosphor-react";
 
 import { api } from "../lib/axios";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import deleteImage from "../utils/deleteImage";
 
 interface ProductTypes {
@@ -27,16 +27,20 @@ type User = {
   photoURL: string
 }
 
-const ProductView = (props: ProductTypes) => {
+const ProductView = (
+  { 
+    id, title, description,
+    price, location, createdAt,
+    userId, photo, setIsDeleted
+  }: ProductTypes) => {
   const { user } = useAuth()
 
   const [ userEmail, setUserEmail ] = useState({} as User)
-  const navigate = useNavigate()
 
   useEffect(() => {
     async function callUser() {
-      if (props.id !== undefined) {
-        const userData = await api.get(`/user/email/${props.id}`)
+      if (id !== undefined) {
+        const userData = await api.get(`/user/email/${id}`)
       
         setUserEmail(userData.data.email)
       }
@@ -48,11 +52,11 @@ const ProductView = (props: ProductTypes) => {
   }, [])
 
   async function deleteProduct() {
-    props.setIsDeleted(true)
+    setIsDeleted(true)
 
-    await api.delete(`/product/${props.id}`)
+    await api.delete(`/product/${id}`)
     .then(() => {
-      deleteImage(props.photo)
+      deleteImage(photo)
     })
   }
 
@@ -63,31 +67,31 @@ const ProductView = (props: ProductTypes) => {
       >
         <aside 
           className="h-[100%] w-[100%] rounded skeleton bg-left-bottom"  
-          style={{backgroundImage: `url(${props?.photo})`, backgroundSize: 'cover'}} 
+          style={{backgroundImage: `url(${photo})`, backgroundSize: 'cover'}} 
         />
       </article>
       <div className="w-[60%] max-[1000px]:w-[400px]">
         <div className="flex items-center gap-4 flex-wrap">
-          <h3 className="font-medium text-[28px]">{props?.title}</h3>
+          <h3 className="font-medium text-[28px]">{title}</h3>
           <span className="flex items-center gap-1 text-[14px] text-gray-400">
-            <Timer /> { props?.createdAt }
+            <Timer /> { createdAt }
           </span>
         </div>
         <p className="block mb-[10px] mt-[10px] text-[16px]">
-          { props?.description }
+          { description }
         </p>
         <span className="text-[#474747] flex gap-2 items-center mb-2">
           <MapPin />
-          { props?.location }
+          { location }
         </span>
-        <h4 className="text-lg text-[#474747] mb-[19px]">{props.price} $</h4>
+        <h4 className="text-lg text-[#474747] mb-[19px]">{price} $</h4>
         <div className="flex gap-2 rounded">
         {
-          props?.title !== "???" && props?.title !== undefined?
+          title !== "???" && title !== undefined?
           (
             <>
               {
-                user?.uid !== props.userId?
+                user?.uid !== userId?
                 (
                   <a href={`mailto:${userEmail}`}>
                     <Button>
@@ -98,7 +102,7 @@ const ProductView = (props: ProductTypes) => {
                 ):
                 (
                   <div className="flex gap-4 items-center">
-                    <Link to={`/product/edit/${props.id}`}>
+                    <Link to={`/product/edit/${id}`}>
                       <Button>
                         <Pencil size="20"/>
                         Editar producto

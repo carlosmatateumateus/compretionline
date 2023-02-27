@@ -1,6 +1,5 @@
 import { FileImage, Info, X } from "phosphor-react"
 import clsx from "clsx"
-import { getStorage } from "firebase/storage";
 import deleteImage from "../utils/deleteImage";
 
 interface ImageUploaderProps {
@@ -13,8 +12,6 @@ interface ImageUploaderProps {
 }
 
 export default function ImageUploader(props:ImageUploaderProps) {
-  const storage = getStorage();
-
   function handleUploadImage(e: any) {
     props.setImage(e.target.files[0])
     

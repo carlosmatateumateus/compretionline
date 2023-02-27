@@ -9,8 +9,8 @@ type User = {
 
 type AuthContextType = {
   user: User | undefined,
-  signInWithGoogle: () => Promise<void>,
-  GoogleSignOut: () => Promise<unknown>,
+  signIn: () => Promise<void>,
+  signOut: () => Promise<unknown>,
 }
 
 const useAuth = ():AuthContextType => useContext(AuthContext)

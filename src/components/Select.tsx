@@ -8,16 +8,16 @@ interface SelectProps {
   value: string | undefined,
 }
 
-export default function Select(props: SelectProps) {
+export default function Select({ id, options, placeHolder, setValue, value }: SelectProps) {
   return (
     <ReactSelect
-      id={props.id}
-      options={props.options}
+      id={id}
+      options={options}
       classNamePrefix="select"
-      placeholder={props.placeHolder}
-      onChange={(e) => { props.setValue(e?.value) }}
-      value={props.options?.filter(function(option) {
-        return option.value === props.value;
+      placeholder={placeHolder}
+      onChange={(e) => { setValue(e?.value) }}
+      value={options?.filter(function(option) {
+        return option.value === value;
       })}
     />
   )
